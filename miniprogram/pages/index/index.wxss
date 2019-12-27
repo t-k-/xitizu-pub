@@ -43,6 +43,16 @@ page {
   padding-bottom: 70px;
 }
 
+button.question-watch {
+  background-color: green;
+  color: white;
+}
+
+button.question-unwatch {
+  background-color: grey;
+  color: white;
+}
+
 .answer {
   padding-top: 40px;
   padding-bottom: 40px;

@@ -7,6 +7,8 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
+    questionID: 'k293f090320',
+    watchQuestion: false,
     requestResult: ''
   },
 
@@ -35,6 +37,15 @@ Page({
         }
       }
     })
+
+    var vm = this
+    vm.backendRequest('problem-watch', 'get', {'qid': vm.data.questionID}, res => {
+        const ret = res.result.ret
+        console.log('get', ret);
+        if (ret.msg == 'success' && ret.detail.length > 0)
+          vm.setData({ watchQuestion: true });
+    })
+
   },
 
   onGetUserInfo: function(e) {
@@ -51,16 +62,67 @@ Page({
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-        console.log(res)
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        console.log(res)
-      }
+      data: {'test': 123}
+    }).then(res => {
+      console.log('[云函数] [login] succ: ', res.result.openid)
+      app.globalData.openid = res.result.openid
+      console.log(res)
+    }).catch(err => {
+      console.error('[云函数] [login] err:', err)
+      console.log(err)
     })
+  },
+
+  backendRequest: function (root, route, args, on_suc, on_err) {
+    wx.cloud.callFunction({
+      name: root,
+      data: {
+        $url: route,
+        args: args
+      }
+    }).then(res => {
+      on_suc(res)
+    }).catch(err => {
+      console.error(`[backendRequest] ${root}/${route} error:`, err)
+      if (on_err) on_err(err)
+    })
+  },
+
+  onWatchQuestionChange: function () {
+    var vm = this;
+    if (!this.data.watchQuestion) {
+      // 订阅题目授权
+      const tmplID = 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8';
+      wx.requestSubscribeMessage({
+        tmplIds: [tmplID],
+        success (res) {
+          console.log('user accepts notification', res);
+
+          const accepted = (res[tmplID] == 'accept')
+          if (accepted) {
+            vm.backendRequest('problem-watch', 'watch', {'qid': vm.data.questionID},
+            (res) => {
+              console.log('watch', res);
+              vm.setData({
+                watchQuestion: true
+              });
+            });
+          }
+
+        },
+        fail (res) {
+          console.log('user rejects notification', res);
+        }
+      })
+    } else {
+      vm.backendRequest('problem-watch', 'unwatch', {'qid': vm.data.questionID},
+      (res) => {
+        console.log('unwatch', res);
+        vm.setData({
+          watchQuestion: false
+        });
+      });
+    }
   }
+
 })

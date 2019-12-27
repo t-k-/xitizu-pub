@@ -14,7 +14,7 @@
 
   <view class="question">
     <view style="margin-bottom: 20px;">
-      <view class="title">题目编号 #fk293f090320 </view>
+      <view class="title">题目编号 #{{questionID}} </view>
       <view style="color:red">（本题有 2 元悬赏）</view>
     </view>
 
@@ -34,9 +34,12 @@
     <icon type="cancel" size="40"/>
     <icon type="success_no_circle" size="40"/>
 
-    <view><text>关注问题</text></view>
     <view>
-    <switch checked="{{false}}" bindchange="switch1Change"/>
+		{{watchQuestion}}
+		<button class="{{watchQuestion ? 'question-watch': 'question-unwatch'}}"
+		 bindtap="onWatchQuestionChange">
+		{{watchQuestion ? '正在关注': '关注问题'}}
+		</button>
     </view>
 
     <view>打赏者列表</view>
