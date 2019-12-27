@@ -1,0 +1,72 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="userinfo">
+      <button open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo">
+      <image class="userinfo-avatar" src="{{avatarUrl}}"/>
+      </button>
+
+      <view class="userinfo-nickname-wrapper">
+        <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+      </view>
+  </view>
+
+  <view class="question">
+    <view style="margin-bottom: 20px;">
+      <view class="title">题目编号 #fk293f090320 </view>
+      <view style="color:red">（本题有 2 元悬赏）</view>
+    </view>
+
+    <scroll-view  scroll-x="true" style="width: 280px;">
+      <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
+    </scroll-view>
+
+    <view class="footnote">编辑于 2019 年 12 月 27 日</view>
+
+    <view  class="tag">大学数学</view>
+    <view  class="tag">数学分析</view>
+    <view  class="tag">2019考研真题</view>
+    <view  class="tag">极限求值</view>
+    <view  class="tag">+ 添加标签</view>
+  
+    <view><text>收藏问题</text></view>
+    <icon type="cancel" size="40"/>
+    <icon type="success_no_circle" size="40"/>
+
+    <view><text>关注问题</text></view>
+    <view>
+    <switch checked="{{false}}" bindchange="switch1Change"/>
+    </view>
+
+    <view>打赏者列表</view>
+    <view>参与者列表</view>
+  
+    <button type="warn" size="mini">打赏参与者</button>
+    <button type="primary" size="mini">答题（上传图片）</button>
+  </view>
+
+<view class="separator" />
+<view>注意，下面有解答。</view>
+<view>多多思考有助提高。</view>
+<view class="separator" />
+
+<view class="answer">
+<view>用户头像</view>
+<view>标记问题 -- fold the post</view>
+<view>thumbup</view>
+<view>👎</view>
+<view class="separator"/>
+<view>comments</view>
+<view>分享</view>
+  <scroll-view  scroll-x="true" style="width: 280px;">
+    <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
+  </scroll-view>
+  </view>
+
+<view class="answer">
+  <scroll-view  scroll-x="true" style="width: 280px;">
+    <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
+  </scroll-view>
+  </view>
+</view>
