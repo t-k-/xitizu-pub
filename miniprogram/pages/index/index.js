@@ -7,7 +7,7 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    questionID: 'k293f090320',
+    questionID: 'km2019',
     watchQuestion: false,
     requestResult: ''
   },

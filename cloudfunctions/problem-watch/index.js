@@ -1,11 +1,75 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-
 const TcbRouter = require('tcb-router')
+const axios = require('axios');
 
 const cloud_env = cloud.DYNAMIC_CURRENT_ENV
 
 cloud.init({ env: cloud_env })
+
+async function notification_send(access_token, question_id, openid)
+{
+  try {
+    var response = await cloud.callFunction({
+      name: 'problem-watch',
+      data: {
+        $url: 'get',
+        args: {
+          'qid': question_id
+        }
+      }
+    })
+
+    const ret = response.result.ret
+    console.log(ret);
+
+    if (ret.msg == 'success' && ret.detail.length > 0) {
+      /* only send subscribe message when user does not cancel */
+      await axios.post(
+        'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
+        + `access_token=${access_token}`, {
+        touser: openid,
+        template_id: 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8',
+        data: {
+          "thing1": {
+            "data": "foo"
+          },
+          "phrase2": {
+            "value": "bar"
+          }
+        }
+      })
+    }
+
+  } catch (e) {
+    console.error('[云函数] [problem-watch] err:', e)
+  }
+}
+
+async function notification_test(appid, question_id, openid)
+{
+  const secret = 'e1a74283df5c1ba16a70a1afbbcdc285'
+
+  console.log('https://api.weixin.qq.com/cgi-bin/token?'
+    + `grant_type=client_credential&appid=${appid}&secret=${secret}`);
+
+  try {
+    response = await axios.get('https://api.weixin.qq.com/cgi-bin/token?'
+      + `grant_type=client_credential&appid=${appid}&secret=${secret}`, {})
+    const access_token = response.data.access_token
+    console.log('GET good:', access_token)
+
+    return new Promise((resolve, reject) => {
+      setTimer(async () => {
+        await notification_send(access_token, question_id, openid)
+        resolve();
+      }, 9000);
+    })
+
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -34,6 +98,7 @@ exports.main = async (event, context) => {
       }
     }).then(res => {
       ctx.body.ret = {msg: "success", detail: res};
+      return notification_test(appid, 'km2019', openid)
     }).catch(e => {
       ctx.body.ret = {msg: 'error', detail: e};
     })
