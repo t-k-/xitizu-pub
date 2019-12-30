@@ -39,9 +39,10 @@ Page({
     })
 
     var vm = this
-    vm.backendRequest('problem-watch', 'get', {'qid': vm.data.questionID}, res => {
+    vm.backendRequest('problem-watch', 'list',{'qid': vm.data.questionID},
+    res => {
         const ret = res.result.ret
-        console.log('get', ret);
+        console.log('list', ret);
         if (ret.msg == 'success' && ret.detail.length > 0)
           vm.setData({ watchQuestion: true });
     })

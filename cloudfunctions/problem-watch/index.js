@@ -5,27 +5,20 @@ const axios = require('axios');
 
 const cloud_env = cloud.DYNAMIC_CURRENT_ENV
 
-cloud.init({ env: cloud_env })
+cloud.init()
 
 async function notification_send(access_token, question_id, openid)
 {
   try {
-    console.log('calling cloud... ' + question_id);
-    var response = await cloud.callFunction({
-      secretKey: 'e1a74283df5c1ba16a70a1afbbcdc285',
-      name: 'problem-watch',
-      data: {
-        $url: 'get',
-        args: {
-          'qid': question_id
-        }
-      }
-    })
+    const db = cloud.database(cloud_env)
+    const ret = await db.collection('watch').where({
+      qid: question_id,
+      openid: openid
+    }).count();
 
-    const ret = response.result.ret
-    console.log(ret);
-
-    if (ret.msg == 'success' && ret.detail.length > 0) {
+    const total = ret.total
+    console.log('watching? ', total);
+    if (total > 0) {
 
       console.log('https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
         + `access_token=${access_token}`)
@@ -59,7 +52,6 @@ async function notification_send(access_token, question_id, openid)
         }
       })
 
-      console.log('POST ok:', response)
     } else {
       console.log('user cancels subscription.')
     }
@@ -137,7 +129,7 @@ exports.main = async (event, context) => {
 
   });
 
-  app.router('get', async (ctx, next) => {
+  app.router('list', async (ctx, next) => {
     const qid = args.qid;
 
     await db.collection('watch').where({
