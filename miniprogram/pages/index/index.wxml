@@ -29,22 +29,25 @@
     <view  class="tag">2019考研真题</view>
     <view  class="tag">极限求值</view>
     <view  class="tag">+ 添加标签</view>
-  
+
     <view><text>收藏问题</text></view>
     <icon type="cancel" size="40"/>
     <icon type="success_no_circle" size="40"/>
 
     <view>
-		{{watchQuestion}}
-		<button class="{{watchQuestion ? 'question-watch': 'question-unwatch'}}"
-		 bindtap="onWatchQuestionChange">
-		{{watchQuestion ? '正在关注': '关注问题'}}
-		</button>
+    <button class="{{watchQuestion ? 'question-watch': 'question-unwatch'}}"
+     bindtap="onWatchQuestionChange">
+    {{watchQuestion ? '正在关注': '关注问题'}}
+    </button>
+    </view>
+
+    <view>
+    <button type="primary" bindtap="onTestNotification">测试关注通知</button>
     </view>
 
     <view>打赏者列表</view>
     <view>参与者列表</view>
-  
+
     <button type="warn" size="mini">打赏参与者</button>
     <button type="primary" size="mini">答题（上传图片）</button>
   </view>

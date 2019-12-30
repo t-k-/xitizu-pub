@@ -123,6 +123,12 @@ Page({
         });
       });
     }
-  }
+  },
 
+  onTestNotification: function () {
+    this.backendRequest('problem-watch', 'notify', {'qid': this.data.questionID},
+    (res) => {
+      console.log('notify', res);
+    });
+  }
 })

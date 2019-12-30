@@ -10,7 +10,9 @@ cloud.init({ env: cloud_env })
 async function notification_send(access_token, question_id, openid)
 {
   try {
+    console.log('calling cloud... ' + question_id);
     var response = await cloud.callFunction({
+      secretKey: 'e1a74283df5c1ba16a70a1afbbcdc285',
       name: 'problem-watch',
       data: {
         $url: 'get',
@@ -24,21 +26,42 @@ async function notification_send(access_token, question_id, openid)
     console.log(ret);
 
     if (ret.msg == 'success' && ret.detail.length > 0) {
+
+      console.log('https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
+        + `access_token=${access_token}`)
+
+      console.log({
+        touser: openid,
+        template_id: 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8',
+        data: {
+          thing1: {
+            "value": "foo"
+          },
+          phrase2: {
+            "value": "已解决"
+          }
+        }
+      })
+
       /* only send subscribe message when user does not cancel */
-      await axios.post(
+      const response = await axios.post(
         'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
         + `access_token=${access_token}`, {
         touser: openid,
         template_id: 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8',
         data: {
-          "thing1": {
-            "data": "foo"
+          thing1: {
+            "value": "foo"
           },
-          "phrase2": {
-            "value": "bar"
+          phrase2: {
+            "value": "已解决"
           }
         }
       })
+
+      console.log('POST ok:', response)
+    } else {
+      console.log('user cancels subscription.')
     }
 
   } catch (e) {
@@ -57,14 +80,9 @@ async function notification_test(appid, question_id, openid)
     response = await axios.get('https://api.weixin.qq.com/cgi-bin/token?'
       + `grant_type=client_credential&appid=${appid}&secret=${secret}`, {})
     const access_token = response.data.access_token
-    console.log('GET good:', access_token)
+    console.log('GET ok:', access_token)
 
-    return new Promise((resolve, reject) => {
-      setTimer(async () => {
-        await notification_send(access_token, question_id, openid)
-        resolve();
-      }, 9000);
-    })
+    await notification_send(access_token, question_id, openid)
 
   } catch (e) {
     console.log(e)
@@ -98,7 +116,6 @@ exports.main = async (event, context) => {
       }
     }).then(res => {
       ctx.body.ret = {msg: "success", detail: res};
-      return notification_test(appid, 'km2019', openid)
     }).catch(e => {
       ctx.body.ret = {msg: 'error', detail: e};
     })
@@ -134,6 +151,8 @@ exports.main = async (event, context) => {
   });
 
   app.router('notify', async (ctx, next) => {
+    const qid = args.qid;
+    await notification_test(appid, qid, openid)
   });
 
   return app.serve()
