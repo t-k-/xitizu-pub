@@ -57,7 +57,7 @@ async function notification_send(access_token, question_id, openid)
     }
 
   } catch (e) {
-    console.error('[云函数] [problem-watch] err:', e)
+    console.error('[云函数] err:', e)
   }
 }
 

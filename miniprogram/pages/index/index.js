@@ -29,7 +29,7 @@ Page({
           success(res) {
             const accepted = (res[tmplID] == 'accept')
             if (accepted) {
-              vm.backendRequest('problem-watch', 'watch', { 'qid': vm.data.questionID },
+              vm.backendRequest('question-watch', 'watch', { 'qid': vm.data.questionID },
                 (res) => {
                   console.log('watch', res)
                   resolve(true)
@@ -46,7 +46,7 @@ Page({
           }
         })
       } else {
-        vm.backendRequest('problem-watch', 'unwatch', { 'qid': vm.data.questionID },
+        vm.backendRequest('question-watch', 'unwatch', { 'qid': vm.data.questionID },
           (res) => {
             console.log('unwatch', res)
             resolve(false)
@@ -84,7 +84,7 @@ Page({
 
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
-      vm.backendRequest('problem-watch', 'list', { 'qid': vm.data.questionID },
+      vm.backendRequest('question-watch', 'list', { 'qid': vm.data.questionID },
         res => {
           const ret = res.result.ret
           console.log('list', ret);
@@ -139,7 +139,7 @@ Page({
   },
 
   onTestNotification: function () {
-    this.backendRequest('problem-watch', 'notify', {'qid': this.data.questionID},
+    this.backendRequest('question-watch', 'notify', {'qid': this.data.questionID},
     (res) => {
       console.log('notify', res);
     });
