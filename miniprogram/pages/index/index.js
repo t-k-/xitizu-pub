@@ -27,8 +27,6 @@ Page({
         wx.requestSubscribeMessage({
           tmplIds: [tmplID],
           success(res) {
-            console.log('user accepts notification', res)
-
             const accepted = (res[tmplID] == 'accept')
             if (accepted) {
               vm.backendRequest('problem-watch', 'watch', { 'qid': vm.data.questionID },
@@ -36,11 +34,15 @@ Page({
                   console.log('watch', res)
                   resolve(true)
                 })
+            } else {
+              console.log('user accepts notification', res)
+              resolve(false)
             }
 
           },
-          fail(res) {
-            console.log('user rejects notification', res)
+          fail(err) {
+            console.log('backend Request failed', err)
+            resolve(false)
           }
         })
       } else {
