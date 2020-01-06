@@ -1,4 +1,6 @@
 //index.js
+
+const print = require("../../common-utils/print.js")
 const app = getApp()
 
 Page({
@@ -16,10 +18,50 @@ Page({
     wx.stopPullDownRefresh()
   },
 
+  onWatchBtnTap: function () {
+    var vm = this
+    this.watchButton.setThen(new Promise((resolve, reject) => {
+      if (this.watchButton.data.state === "off") {
+        // 订阅题目授权
+        const tmplID = 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8'
+        wx.requestSubscribeMessage({
+          tmplIds: [tmplID],
+          success(res) {
+            console.log('user accepts notification', res)
+
+            const accepted = (res[tmplID] == 'accept')
+            if (accepted) {
+              vm.backendRequest('problem-watch', 'watch', { 'qid': vm.data.questionID },
+                (res) => {
+                  console.log('watch', res)
+                  resolve(true)
+                })
+            }
+
+          },
+          fail(res) {
+            console.log('user rejects notification', res)
+          }
+        })
+      } else {
+        vm.backendRequest('problem-watch', 'unwatch', { 'qid': vm.data.questionID },
+          (res) => {
+            console.log('unwatch', res)
+            resolve(false)
+          })
+      }
+    }))
+  },
+
   onLoad: function() {
     wx.showShareMenu({
       withShareTicket: true
     })
+
+    this.watchButton = this.selectComponent("#watchButton")
+
+    print.sayHello('wei')
+    print.sayGoodbye('jia')
 
     // 获取用户信息
     wx.getSetting({
@@ -39,13 +81,18 @@ Page({
     })
 
     var vm = this
-    vm.backendRequest('problem-watch', 'list',{'qid': vm.data.questionID},
-    res => {
-        const ret = res.result.ret
-        console.log('list', ret);
-        if (ret.msg == 'success' && ret.detail.length > 0)
-          vm.setData({ watchQuestion: true });
-    })
+    this.watchButton.setThen(new Promise((resolve, reject) => {
+      vm.backendRequest('problem-watch', 'list', { 'qid': vm.data.questionID },
+        res => {
+          const ret = res.result.ret
+          console.log('list', ret);
+          if (ret.msg == 'success' && ret.detail.length > 0) {
+            resolve(true)
+          } else {
+            resolve(false)
+          }
+      })
+    }))
 
   },
 
@@ -87,43 +134,6 @@ Page({
       console.error(`[backendRequest] ${root}/${route} error:`, err)
       if (on_err) on_err(err)
     })
-  },
-
-  onWatchQuestionChange: function () {
-    var vm = this;
-    if (!this.data.watchQuestion) {
-      // 订阅题目授权
-      const tmplID = 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8';
-      wx.requestSubscribeMessage({
-        tmplIds: [tmplID],
-        success (res) {
-          console.log('user accepts notification', res);
-
-          const accepted = (res[tmplID] == 'accept')
-          if (accepted) {
-            vm.backendRequest('problem-watch', 'watch', {'qid': vm.data.questionID},
-            (res) => {
-              console.log('watch', res);
-              vm.setData({
-                watchQuestion: true
-              });
-            });
-          }
-
-        },
-        fail (res) {
-          console.log('user rejects notification', res);
-        }
-      })
-    } else {
-      vm.backendRequest('problem-watch', 'unwatch', {'qid': vm.data.questionID},
-      (res) => {
-        console.log('unwatch', res);
-        vm.setData({
-          watchQuestion: false
-        });
-      });
-    }
   },
 
   onTestNotification: function () {

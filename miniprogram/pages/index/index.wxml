@@ -1,15 +1,10 @@
 <!--index.wxml-->
 <view class="container">
-
   <view class="userinfo">
       <button open-type="getUserInfo" 
       bindgetuserinfo="onGetUserInfo">
       <image class="userinfo-avatar" src="{{avatarUrl}}"/>
       </button>
-
-      <view class="userinfo-nickname-wrapper">
-        <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
-      </view>
   </view>
 
   <view class="question">
@@ -35,10 +30,8 @@
     <icon type="success_no_circle" size="40"/>
 
     <view>
-    <button class="{{watchQuestion ? 'question-watch': 'question-unwatch'}}"
-     bindtap="onWatchQuestionChange">
-    {{watchQuestion ? '正在关注': '关注问题'}}
-    </button>
+    <watch-button id="watchButton" bind:tap="onWatchBtnTap"
+    labelOn="关注成功" labelOff="关注问题"></watch-button>
     </view>
 
     <view>

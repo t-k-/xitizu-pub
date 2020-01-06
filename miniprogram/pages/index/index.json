@@ -1,4 +1,6 @@
 {
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "watch-button": "../../components/toggle-button/toggle-button"
+  }
 }

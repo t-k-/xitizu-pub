@@ -1,0 +1,5 @@
+<!--components/toggle-button/toggle-button.wxml-->
+<button catchtap="onTap"
+type="{{state === 'on' ? 'primary' : 'warn'}}">
+{{label}}
+</button>
