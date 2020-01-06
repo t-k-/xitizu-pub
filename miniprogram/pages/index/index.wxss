@@ -3,12 +3,13 @@
 
 .tag {
   display: inline-block;
-  background-color: gray;
+  background-color: cornflowerblue;
   border: none;
+  font-size: x-small;
   margin-bottom: 5px;
   margin-right: 5px;
   border-radius: 6px;
-  padding: 5px 5px 5px 5px;
+  padding: 7px 7px 7px 7px;
   color: whitesmoke;
 }
 
