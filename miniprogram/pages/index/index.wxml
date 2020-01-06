@@ -7,6 +7,12 @@
       </button>
   </view>
 
+  <view class="flex-container flex-justify-center">
+  <div class="flex-test-item flex-g1">P</div>
+  <div class="flex-test-item flex-g3">Q</div>
+  <div class="flex-test-item flex-g1">D</div> 
+  </view>
+
   <view class="question">
     <view style="margin-bottom: 20px;">
       <view class="title">题目编号 #{{questionID}} </view>

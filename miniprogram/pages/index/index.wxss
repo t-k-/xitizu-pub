@@ -1,4 +1,4 @@
-/**index.wxss**/
+@import "/style/flex.wxss";
 
 page {
   background: #f6f6f6;

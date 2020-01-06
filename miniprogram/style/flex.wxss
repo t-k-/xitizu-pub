@@ -1,0 +1,36 @@
+.flex-container {
+  display: flex;
+  width: 100%;
+}
+
+.flex-justify-space {
+  justify-content: space-around;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-test-item {
+  background: blueviolet;
+}
+
+.flex-g1 {
+  flex: 1;
+}
+
+.flex-g2 {
+  flex: 2;
+}
+
+.flex-g3 {
+  flex: 3;
+}
