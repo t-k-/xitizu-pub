@@ -1,6 +1,5 @@
-//index.js
-
 const print = require("../../common-utils/print.js")
+const request = require("../../common-utils/request.js")
 const app = getApp()
 
 Page({
@@ -8,9 +7,7 @@ Page({
     avatarUrl: '/pages/index/user-unlogin.png',
     userInfo: {},
     logged: false,
-    takeSession: false,
     questionID: 'km2019',
-    watchQuestion: false,
     requestResult: ''
   },
 
@@ -29,7 +26,7 @@ Page({
           success(res) {
             const accepted = (res[tmplID] == 'accept')
             if (accepted) {
-              vm.backendRequest('question-watch', 'watch', { 'qid': vm.data.questionID },
+              request.cloud('question-watch', 'watch', { 'qid': vm.data.questionID },
                 (res) => {
                   console.log('watch', res)
                   resolve(true)
@@ -41,12 +38,12 @@ Page({
 
           },
           fail(err) {
-            console.log('backend Request failed', err)
+            console.log('Request failed', err)
             resolve(false)
           }
         })
       } else {
-        vm.backendRequest('question-watch', 'unwatch', { 'qid': vm.data.questionID },
+        request.cloud('question-watch', 'unwatch', { 'qid': vm.data.questionID },
           (res) => {
             console.log('unwatch', res)
             resolve(false)
@@ -84,7 +81,7 @@ Page({
 
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
-      vm.backendRequest('question-watch', 'list', { 'qid': vm.data.questionID },
+      request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
         res => {
           const ret = res.result.ret
           console.log('list', ret);
@@ -123,23 +120,8 @@ Page({
     })
   },
 
-  backendRequest: function (root, route, args, on_suc, on_err) {
-    wx.cloud.callFunction({
-      name: root,
-      data: {
-        $url: route,
-        args: args
-      }
-    }).then(res => {
-      on_suc(res)
-    }).catch(err => {
-      console.error(`[backendRequest] ${root}/${route} error:`, err)
-      if (on_err) on_err(err)
-    })
-  },
-
   onTestNotification: function () {
-    this.backendRequest('question-watch', 'notify', {'qid': this.data.questionID},
+    request.cloud('question-watch', 'notify', {'qid': this.data.questionID},
     (res) => {
       console.log('notify', res);
     });

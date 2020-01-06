@@ -19,23 +19,6 @@ async function notification_send(access_token, question_id, openid)
     const total = ret.total
     console.log('watching? ', total);
     if (total > 0) {
-
-      console.log('https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
-        + `access_token=${access_token}`)
-
-      console.log({
-        touser: openid,
-        template_id: 'uZQk1NJLtmExnx6BAVAapOjtk10yhy9XESXLinYa4F8',
-        data: {
-          thing1: {
-            "value": "foo"
-          },
-          phrase2: {
-            "value": "已解决"
-          }
-        }
-      })
-
       /* only send subscribe message when user does not cancel */
       const response = await axios.post(
         'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?'
@@ -81,7 +64,6 @@ async function notification_test(appid, question_id, openid)
   }
 }
 
-// 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const openid  = wxContext.OPENID
@@ -94,7 +76,7 @@ exports.main = async (event, context) => {
   const db = cloud.database(cloud_env)
 
   app.use(async (ctx, next) => {
-    ctx.body = {}; /* create return body */
+    ctx.body = {};
     await next();
   });
 
