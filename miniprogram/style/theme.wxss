@@ -1,0 +1,10 @@
+page {
+  background-color: whitesmoke;
+  font-size: small;
+}
+
+.footnote {
+  font-size: x-small;
+  color: darkslategrey;
+  margin-bottom: 10px;
+}

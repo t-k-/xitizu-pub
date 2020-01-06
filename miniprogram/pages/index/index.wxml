@@ -1,24 +1,18 @@
 <!--index.wxml-->
-<view class="container">
+<view>
   <view class="userinfo">
-      <button open-type="getUserInfo" 
+      <button style="background-color: inherit;" open-type="getUserInfo" 
       bindgetuserinfo="onGetUserInfo">
       <image class="userinfo-avatar" src="{{avatarUrl}}"/>
       </button>
   </view>
 
-  <view class="flex-container flex-justify-center">
-  <div class="flex-test-item flex-g1">P</div>
-  <div class="flex-test-item flex-g3">Q</div>
-  <div class="flex-test-item flex-g1">D</div> 
+  <view class="flex-container flex-justify-end">
+  <div class="flex-g3">题目编号 #{{questionID}}</div>
+  <div>（悬赏2元）</div> 
   </view>
 
   <view class="question">
-    <view style="margin-bottom: 20px;">
-      <view class="title">题目编号 #{{questionID}} </view>
-      <view style="color:red">（本题有 2 元悬赏）</view>
-    </view>
-
     <scroll-view  scroll-x="true" style="width: 280px;">
       <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
     </scroll-view>
