@@ -25,7 +25,6 @@ Component({
       src: vm.properties.url,
       success: function (res) {
         var min = Math.min(res.width, win_width)
-        console.log(res.width, win_width)
         vm.setData({
           outer_style: 'width:' + min + 'px',
           inner_style: 'width:' + res.width + 'px'
