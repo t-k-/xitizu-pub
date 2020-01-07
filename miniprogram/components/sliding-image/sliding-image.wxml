@@ -1,0 +1,5 @@
+<div class="flex-container flex-justify-center">
+  <scroll-view  scroll-x="true" style="width: 100vw;">
+    <image class="sliding" src="{{url}}"/>
+  </scroll-view>
+</div>
