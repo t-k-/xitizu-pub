@@ -1,5 +1,8 @@
 <!--components/toggle-button/toggle-button.wxml-->
 <button catchtap="onTap"
 type="{{state === 'on' ? 'primary' : 'warn'}}">
+<text wx:if="{{state !== 'waiting'}}" 
+class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}">
+</text>
 {{label}}
 </button>

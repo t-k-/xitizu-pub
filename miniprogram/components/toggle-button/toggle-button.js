@@ -8,6 +8,14 @@ Component({
     "labelOff": {
       type: String,
       value: "label-off"
+    },
+    "iconOn": {
+      type: String,
+      value: null
+    },
+    "iconOff": {
+      type: String,
+      value: null
     }
   },
 

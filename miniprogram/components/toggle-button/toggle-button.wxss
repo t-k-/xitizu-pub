@@ -1,1 +1,2 @@
-/* components/toggle-button/toggle-button.wxss */
+@import "/style/fa-fontface.wxss";
+@import "/style/fa-fontname.wxss";
