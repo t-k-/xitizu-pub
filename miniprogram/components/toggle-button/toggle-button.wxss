@@ -8,5 +8,5 @@ button.off {
 
 button.on {
   background-color: inherit;
-  color: slateblue;
+  color: cornflowerblue;
 }
