@@ -1,87 +1,76 @@
-<!--index.wxml-->
-<view>
-  <view class="userinfo">
-      <button style="background-color: inherit;" open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo">
-      <image class="userinfo-avatar" src="{{avatarUrl}}"/>
-      </button>
-  </view>
+<view class="userinfo">
+    <button style="background-color: inherit;" open-type="getUserInfo" 
+    bindgetuserinfo="onGetUserInfo">
+    <image class="userinfo-avatar" src="{{avatarUrl}}"/>
+    </button>
+</view>
+
+<view class="question">
 
   <view class="flex-container flex-justify-end">
-  <div class="flex-g3">
-  <text style="padding: 0 10px 0 10px" class="fa fa-paperclip">
-  </text>
-  题目编号 {{questionID}}
-  </div>
-  <div>
-  <text style="padding: 0 10px 0 10px" class="fa fa-trophy">
-  </text>
-  悬赏 2 元
-  </div>
+    <div class="flex-g3">
+    <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
+    题目编号 {{questionID}}
+    </div>
+    <div>
+    <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
+    悬赏 2 元
+    </div>
   </view>
 
-  <view class="question">
-      <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
-
-    <view class="footnote">编辑于 2019 年 12 月 27 日</view>
-
-    <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
-    <view  class="tag">大学数学</view>
-    <view  class="tag">数学分析</view>
-    <view  class="tag">2019考研真题</view>
-    <view  class="tag">极限求值</view>
-    <view  class="tag">+ 添加标签</view>
-
-    <view><text>收藏问题</text></view>
-    <text class="fa fa-star"></text>
-    <text class="fa fa-star-o"></text>
-    <view>
+  <view class="flex-container flex-justify-space">
+    <watch-button id="starButton"
+    labelOn="收藏成功" labelOff="收藏问题"
+    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
     <watch-button id="watchButton" bind:tap="onWatchBtnTap"
     labelOn="关注成功" labelOff="关注问题"
     iconOn="fa-eye" iconOff="fa-eye-slash"></watch-button>
-    </view>
+  </view>
 
-    <view>
-    <button type="primary" bindtap="onTestNotification">测试关注通知</button>
-    </view>
+  <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
 
-    <view>打赏者列表</view>
-    <view>参与者列表</view>
+  <view class="footnote">编辑于 2019 年 12 月 27 日</view>
 
-    <button type="warn" size="mini">
+  <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
+  <view  class="tag">大学数学</view>
+  <view  class="tag">数学分析</view>
+  <view  class="tag">2019考研真题</view>
+  <view  class="tag">极限求值</view>
+  <view  class="tag">+ 添加标签</view>
+
+
+
+  <view>打赏者列表</view>
+  <view>参与者列表</view>
+
+  <view class="flex-container flex-justify-space">
+    <button type="warn">
       <text class="fa fa-heart"></text> 打赏
     </button>
-    <button type="primary" size="mini">
+    <button type="primary">
       <text class="fa fa-camera-retro"></text> 拍照答题
     </button>
   </view>
+</view>
 
 <view class="flex-container flex-justify-center flex-direction-column">
   <view class="separator" />
   <view>注意，下面有解答。</view>
   <view>多多思考有助提高。</view>
   <view class="separator" />
-  <text style="padding: 0 10px 0 10px" class="fa fa-ellipsis-v fa-3x">
-  </text>
+  <text style="padding: 0 10px 0 10px" class="fa fa-ellipsis-v fa-3x"></text>
   <view class="separator" />
 </view>
 
 <view class="answer">
-<view>用户头像</view>
-<view>标记问题 -- fold the post</view>
-<view>thumbup</view>
-<view>👎</view>
-<view class="separator"/>
-<view>comments</view>
-<view>分享</view>
-  <scroll-view  scroll-x="true" style="width: 280px;">
-    <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
-  </scroll-view>
-  </view>
+  <button plain="true" bindtap="onTestNotification">测试关注通知</button>
 
-<view class="answer">
-  <scroll-view  scroll-x="true" style="width: 280px;">
-    <image style="width: 900px;" src="https://pic4.zhimg.com/v2-b49de967848229cbb385a3a207f0e1fb_b.jpeg"/>
-  </scroll-view>
-  </view>
+  <view>用户头像</view>
+  <view>标记问题 -- fold the post</view>
+  <view>thumbup</view>
+  <view>👎</view>
+  <view class="separator"/>
+  <view>comments</view>
+  <view>分享</view>
+  <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
 </view>
