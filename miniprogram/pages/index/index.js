@@ -57,8 +57,10 @@ Page({
       withShareTicket: true
     })
 
+    this.starButton = this.selectComponent("#starButton")
     this.watchButton = this.selectComponent("#watchButton")
 
+    this.starButton.setOff();
     print.sayHello('wei')
     print.sayGoodbye('jia')
 

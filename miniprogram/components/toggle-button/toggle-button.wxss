@@ -1,2 +1,12 @@
 @import "/style/fa-fontface.wxss";
 @import "/style/fa-fontname.wxss";
+
+button.off {
+  background-color: inherit;
+  color:lightslategray;
+}
+
+button.on {
+  background-color: inherit;
+  color: slateblue;
+}
