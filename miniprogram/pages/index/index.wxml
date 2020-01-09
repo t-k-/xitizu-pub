@@ -56,17 +56,15 @@
     </button>
   </view>
 
-<view class="separator" />
-
-<view>注意，下面有解答。</view>
-<view>多多思考有助提高。</view>
-
-<view class="separator" />
-
-<text style="padding: 0 10px 0 10px" class="fa fa-ellipsis-v fa-3x">
-</text>
-
-<view class="separator" />
+<view class="flex-container flex-justify-center flex-direction-column">
+  <view class="separator" />
+  <view>注意，下面有解答。</view>
+  <view>多多思考有助提高。</view>
+  <view class="separator" />
+  <text style="padding: 0 10px 0 10px" class="fa fa-ellipsis-v fa-3x">
+  </text>
+  <view class="separator" />
+</view>
 
 <view class="answer">
 <view>用户头像</view>

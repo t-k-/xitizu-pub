@@ -3,20 +3,27 @@
   width: 100%;
 }
 
+.flex-direction-column {
+  flex-direction: column;
+}
+
 .flex-justify-space {
   justify-content: space-around;
 }
 
 .flex-justify-end {
   justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .flex-justify-center {
   justify-content: center;
+  align-items: center;
 }
 
 .flex-justify-start {
   justify-content: flex-start;
+  align-item: flex-start;
 }
 
 .flex-test-item {
