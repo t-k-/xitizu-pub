@@ -3,21 +3,26 @@
   width: 100%;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
 
 .flex-justify-space {
   justify-content: space-around;
+  align-items: center;
 }
 
 .flex-justify-between {
   justify-content: space-between;
+  align-items: center;
 }
 
 .flex-justify-end {
   justify-content: flex-end;
-  align-items: flex-end;
 }
 
 .flex-justify-center {
@@ -27,7 +32,6 @@
 
 .flex-justify-start {
   justify-content: flex-start;
-  align-item: flex-start;
 }
 
 .flex-test-item {

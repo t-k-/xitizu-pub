@@ -7,15 +7,24 @@
 
 <view class="question">
 
-  <view class="flex-container flex-justify-space" style="margin-bottom: 15px;">
-    <div class="flex-g3">
+  <view class="flex-container flex-justify-space flex-wrap" style="margin-bottom: 15px;">
+
+    <div style= class="flex-g1" style="min-width: 150px; padding-top: 20px;">
       <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
       题目编号 {{questionID}}
     </div>
-    <div style="padding-right:15px;">
-      <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
-      悬赏 2 元
+
+    <div style="padding-top: 20px;">
+      <div style="padding-right:15px;">
+        <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
+        悬赏 2 元
+      </div>
+      <div style="padding-right:15px;">
+        <text style="padding: 0 10px 0 10px" class="fa fa-share"></text>
+        转发
+      </div>
     </div>
+
   </view>
 
   <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
@@ -38,7 +47,7 @@
 
   <view class="separator" />
 
-  <view class="flex-container flex-justify-space">
+  <view class="flex-container flex-justify-between">
   
     <watch-button id="watchButton" bind:tap="onWatchBtnTap"
     labelOn="关注" labelOff="关注" style="min-width: 65px"
@@ -52,7 +61,7 @@
     labelOn="打赏" labelOff="打赏" style="min-width: 65px"
     iconOn="fa-heart" iconOff="fa-heart-o"></watch-button>
 
-    <div class="flex-g2 flex-container flex-justify-center">
+    <div class="flex-container flex-justify-end">
       <button type="primary" size="mini" style="max-width: 300px; width: 90%; padding: 4px 5px;">
         <text class="fa fa-camera-retro"></text> 拍照答题
       </button>
