@@ -39,20 +39,21 @@
   <view class="separator" />
 
   <view class="flex-container flex-justify-space">
-    <watch-button id="starButton"
-    labelOn="收藏" labelOff="收藏"
-    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
-
+  
     <watch-button id="watchButton" bind:tap="onWatchBtnTap"
-    labelOn="关注" labelOff="关注"
+    labelOn="关注" labelOff="关注" style="min-width: 65px"
     iconOn="fa-eye" iconOff="fa-eye-slash"></watch-button>
 
+    <watch-button id="starButton" 
+    labelOn="收藏" labelOff="收藏" style="min-width: 65px"
+    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
+
     <watch-button id="awardButton"
-    labelOn="打赏" labelOff="打赏"
+    labelOn="打赏" labelOff="打赏" style="min-width: 65px"
     iconOn="fa-heart" iconOff="fa-heart-o"></watch-button>
 
     <div class="flex-g2 flex-container flex-justify-center">
-      <button type="primary" size="mini" style="width: 90%; padding: 4px 5px;">
+      <button type="primary" size="mini" style="max-width: 300px; width: 90%; padding: 4px 5px;">
         <text class="fa fa-camera-retro"></text> 拍照答题
       </button>
     </div>
@@ -65,8 +66,7 @@
   <view>注意，下面有解答。</view>
   <view>多多思考有助提高。</view>
   <view class="separator" />
-  <text style="padding: 0 10px 0 10px" class="fa fa-ellipsis-v fa-3x"></text>
-  <view class="separator" />
+  
 </view>
 
 <view class="answer">

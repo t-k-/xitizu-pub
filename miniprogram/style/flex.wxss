@@ -11,6 +11,10 @@
   justify-content: space-around;
 }
 
+.flex-justify-between {
+  justify-content: space-between;
+}
+
 .flex-justify-end {
   justify-content: flex-end;
   align-items: flex-end;
