@@ -27,7 +27,7 @@
 }
 
 .flex-test-item {
-  background: blueviolet;
+  border: 1px solid blueviolet;
 }
 
 .flex-g1 {

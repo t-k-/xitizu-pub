@@ -7,50 +7,57 @@
 
 <view class="question">
 
-  <view class="flex-container flex-justify-end">
+  <view class="flex-container flex-justify-space" style="margin-bottom: 15px;">
     <div class="flex-g3">
-    <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
-    题目编号 {{questionID}}
+      <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
+      题目编号 {{questionID}}
     </div>
-    <div>
-    <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
-    悬赏 2 元
+    <div style="padding-right:15px;">
+      <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
+      悬赏 2 元
     </div>
-  </view>
-
-  <view class="flex-container flex-justify-space">
-    <watch-button id="starButton"
-    labelOn="收藏成功" labelOff="收藏问题"
-    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
-    <watch-button id="watchButton" bind:tap="onWatchBtnTap"
-    labelOn="关注成功" labelOff="关注问题"
-    iconOn="fa-eye" iconOff="fa-eye-slash"></watch-button>
   </view>
 
   <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
 
   <view class="footnote">编辑于 2019 年 12 月 27 日</view>
 
-  <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
-  <view  class="tag">大学数学</view>
-  <view  class="tag">数学分析</view>
-  <view  class="tag">2019考研真题</view>
-  <view  class="tag">极限求值</view>
-  <view  class="tag">+ 添加标签</view>
+  <view id="taglist">
+    <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
+    <view  class="tag">大学数学</view>
+    <view  class="tag">数学分析</view>
+    <view  class="tag">2019考研真题</view>
+    <view  class="tag">极限求值</view>
+    <view  class="tag">+ 添加标签</view>
+  </view>
 
-
+  <view class="separator" />
 
   <view>打赏者列表</view>
   <view>参与者列表</view>
 
+  <view class="separator" />
+
   <view class="flex-container flex-justify-space">
-    <button type="warn">
-      <text class="fa fa-heart"></text> 打赏
-    </button>
-    <button type="primary">
-      <text class="fa fa-camera-retro"></text> 拍照答题
-    </button>
+    <watch-button id="starButton"
+    labelOn="收藏" labelOff="收藏"
+    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
+
+    <watch-button id="watchButton" bind:tap="onWatchBtnTap"
+    labelOn="关注" labelOff="关注"
+    iconOn="fa-eye" iconOff="fa-eye-slash"></watch-button>
+
+    <watch-button id="awardButton"
+    labelOn="打赏" labelOff="打赏"
+    iconOn="fa-heart" iconOff="fa-heart-o"></watch-button>
+
+    <div class="flex-g2 flex-container flex-justify-center">
+      <button type="primary" size="mini" style="width: 90%; padding: 4px 5px;">
+        <text class="fa fa-camera-retro"></text> 拍照答题
+      </button>
+    </div>
   </view>
+
 </view>
 
 <view class="flex-container flex-justify-center flex-direction-column">

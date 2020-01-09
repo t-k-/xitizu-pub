@@ -1,7 +1,7 @@
 <button catchtap="onTap" type="default" hover-class="none"
-class="{{state === 'on' ? 'on' : 'off'}}">
-  <text wx:if="{{state !== 'waiting'}}" 
-  class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}">
-  </text>
-  {{label}}
+class="{{state === 'on' ? 'on' : 'off'}}" size="mini" style="font-size: 14px;">
+  <view>
+    <text wx:if="{{state !== 'waiting'}}" class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
+  </view>
+  <view>{{label}}</view>
 </button>

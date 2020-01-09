@@ -3,6 +3,10 @@
 @import "/style/fa-fontface.wxss";
 @import "/style/fa-fontname.wxss";
 
+#taglist {
+  padding-left: 5px;
+}
+
 .tag {
   display: inline-block;
   background-color: cornflowerblue;
@@ -17,7 +21,7 @@
 
 .question {
   padding-top: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
   background: white;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
