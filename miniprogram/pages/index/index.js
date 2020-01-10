@@ -4,11 +4,14 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: '/resources/user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    questionID: 'km2019',
-    requestResult: ''
+    loginNickname: null,
+    questionID: 'km2019'
+  },
+
+  onLogin: function (ev) {
+    this.setData({
+      loginNickname: ev.detail.nickName
+    })
   },
 
   onPullDownRefresh: function () {
@@ -67,27 +70,6 @@ Page({
     print.sayHello('wei')
     print.sayGoodbye('jia')
 
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-              console.log(this.data.avatarUrl)
-              console.log(this.data.userInfo.nickName)
-            }
-          })
-
-          
-        }
-      }
-    })
-
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
       request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
@@ -102,18 +84,6 @@ Page({
       })
     }))
 
-  },
-
-  onGetUserInfo: function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
-
-      console.log(this.data.userInfo)
-    }
   },
 
   onCommentSubmit: function (ev) {

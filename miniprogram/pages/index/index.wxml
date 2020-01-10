@@ -1,9 +1,4 @@
-<view class="userinfo">
-    <button style="background-color: inherit;" open-type="getUserInfo" 
-    bindgetuserinfo="onGetUserInfo">
-    <image class="userinfo-avatar" src="{{avatarUrl}}"/>
-    </button>
-</view>
+<login-avatar bind:login="onLogin"></login-avatar>
 
 <view class="question">
 

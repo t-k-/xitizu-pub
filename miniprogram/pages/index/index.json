@@ -3,6 +3,7 @@
   "usingComponents": {
     "watch-button": "../../components/toggle-button/toggle-button",
     "comment-input": "../../components/comment-input/comment-input",
+    "login-avatar": "../../components/login-avatar/login-avatar",
     "photo": "../../components/sliding-image/sliding-image"
   }
 }

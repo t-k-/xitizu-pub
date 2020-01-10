@@ -1,4 +1,4 @@
-page {
+page, .theme {
   background-color: whitesmoke;
   font-size: small;
   color: lightslategray;

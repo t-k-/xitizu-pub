@@ -1,0 +1,8 @@
+<view>
+    <button style="background-color: inherit;" open-type="getUserInfo" 
+    bindgetuserinfo="onGetUserInfo">
+    <image class="user-avatar" src="{{avatarUrl}}"/>
+    <view class="theme" wx:if="{{!loggedIn}}">请点击登录</view>
+    <view class="theme" wx:else>{{userInfo.nickName}}</view>
+    </button>
+</view>
