@@ -21,14 +21,6 @@ Component({
    */
   methods: {
     onCommentFocus: function (ev) {
-      const content = ev.detail.value.trim()
-      if (content.length == 0) {
-        /* trim field */
-        this.setData({
-          content: ''
-        })
-      }
-
       this.setData({
         focused: true
       })
@@ -48,6 +40,8 @@ Component({
       this.setData({
         focused: false
       })
+    },
+    onLineChange: function (ev) {
     }
   }
 })

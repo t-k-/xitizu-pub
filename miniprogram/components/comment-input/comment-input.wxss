@@ -1,9 +1,14 @@
 @import "/style/flex.wxss";
 
+.editor {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
 .editor textarea {
   background-color: lavender;
-  width: 90%;
-  margin-left: 10px;
+  width: 100%;
+  padding: 4px 4px 4px 4px;
 }
 
 .editor .expanded {
