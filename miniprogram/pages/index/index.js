@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: '/pages/index/user-unlogin.png',
+    avatarUrl: '/resources/user-unlogin.png',
     userInfo: {},
     logged: false,
     questionID: 'km2019',
@@ -126,7 +126,7 @@ Page({
   onTestNotification: function () {
     request.cloud('question-watch', 'notify', {'qid': this.data.questionID},
     (res) => {
-      console.log('notify', res);
-    });
+      console.log('notify', res)
+    })
   }
 })
