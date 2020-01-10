@@ -3,5 +3,5 @@
 image.sliding {
   border-radius: 12px;
   box-shadow: 1px 1px 3px grey;
-  border: 1px solid #777;
+  border: 1px solid silver;
 }
