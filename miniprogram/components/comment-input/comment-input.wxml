@@ -1,7 +1,6 @@
-<view class="flex-container flex-justify-space" style="align-items: flex-end">
+<view class="flex-container flex-justify-space" style="align-items: flex-start">
   <div class="editor flex-g1">
-    <textarea maxlength="4096" auto-height placeholder="评论" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" bindlinechange="onLineChange" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}"/>
+    <textarea maxlength="4096" auto-height placeholder="评论" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" bindinput="onCommentEdit" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}" disable-default-padding/>
   </div>
-  <button wx:if="{{focused || !empty}}" size="mini" type="primary" style="margin-right: 10px;">评论</button>
+  <button wx:if="{{focused || !empty}}" size="mini"  catchtap="onSubmit" type="primary" style="margin-right: 10px;">评论</button>
 </view>
-{{content}}

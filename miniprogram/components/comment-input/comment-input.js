@@ -4,7 +4,6 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
   },
 
   /**
@@ -41,7 +40,17 @@ Component({
         focused: false
       })
     },
-    onLineChange: function (ev) {
+    onCommentEdit: function (ev) {
+      const content = ev.detail.value
+      this.setData({
+        content: content
+      })
+    },
+    onSubmit: function () {
+      const content = this.data.content.trim()
+      this.triggerEvent('submit', {
+        content: content
+      })
     }
   }
 })

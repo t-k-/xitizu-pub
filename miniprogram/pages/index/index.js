@@ -116,6 +116,11 @@ Page({
     }
   },
 
+  onCommentSubmit: function (ev) {
+    const content = ev.detail.content
+    console.log(content)
+  },
+
   onTestNotification: function () {
     request.cloud('question-watch', 'notify', {'qid': this.data.questionID},
     (res) => {

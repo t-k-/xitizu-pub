@@ -47,7 +47,7 @@
 
   <view class="separator" />
 
-  <comment-input></comment-input>
+  <comment-input bind:submit="onCommentSubmit"></comment-input>
 
   <view class="flex-container flex-justify-between">
   
