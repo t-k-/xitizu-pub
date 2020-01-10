@@ -47,6 +47,8 @@
 
   <view class="separator" />
 
+  <comment-input></comment-input>
+
   <view class="flex-container flex-justify-between">
   
     <watch-button id="watchButton" bind:tap="onWatchBtnTap"

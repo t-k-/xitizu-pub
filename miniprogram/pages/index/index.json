@@ -2,6 +2,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "watch-button": "../../components/toggle-button/toggle-button",
+    "comment-input": "../../components/comment-input/comment-input",
     "photo": "../../components/sliding-image/sliding-image"
   }
 }

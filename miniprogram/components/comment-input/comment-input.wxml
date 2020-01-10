@@ -1,0 +1,7 @@
+<view class="flex-container flex-justify-space" style="align-items: flex-end">
+  <div class="editor flex-g1">
+    <textarea maxlength="4096" auto-height placeholder="评论" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}"/>
+  </div>
+  <button wx:if="{{focused || !empty}}" size="mini" type="primary" style="margin-right: 10px;">评论</button>
+</view>
+{{content}}
