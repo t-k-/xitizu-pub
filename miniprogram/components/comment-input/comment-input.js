@@ -9,8 +9,8 @@ Component({
       value: "comment"
     },
     postid: {
-      type: Number,
-      value: 0
+      type: String,
+      value: "null"
     }
   },
 
