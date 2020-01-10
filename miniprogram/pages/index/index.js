@@ -78,8 +78,12 @@ Page({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               })
+              console.log(this.data.avatarUrl)
+              console.log(this.data.userInfo.nickName)
             }
           })
+
+          
         }
       }
     })
@@ -107,22 +111,9 @@ Page({
         avatarUrl: e.detail.userInfo.avatarUrl,
         userInfo: e.detail.userInfo
       })
-    }
-  },
 
-  onGetOpenid: function() {
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {'test': 123}
-    }).then(res => {
-      console.log('[云函数] [login] succ: ', res.result.openid)
-      app.globalData.openid = res.result.openid
-      console.log(res)
-    }).catch(err => {
-      console.error('[云函数] [login] err:', err)
-      console.log(err)
-    })
+      console.log(this.data.userInfo)
+    }
   },
 
   onTestNotification: function () {
