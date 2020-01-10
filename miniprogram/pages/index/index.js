@@ -1,16 +1,16 @@
-const print = require("../../common-utils/print.js")
+const modalPrompt = require("../../common-utils/modal-prompt.js")
 const request = require("../../common-utils/request.js")
 const app = getApp()
 
 Page({
   data: {
-    loginNickname: null,
+    loginName: null,
     questionID: 'km2019'
   },
 
   onLogin: function (ev) {
     this.setData({
-      loginNickname: ev.detail.nickName
+      loginName: ev.detail.nickName
     })
   },
 
@@ -67,9 +67,6 @@ Page({
     this.starButton.setOff();
     this.awardButton.setOff();
 
-    print.sayHello('wei')
-    print.sayGoodbye('jia')
-
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
       request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
@@ -87,10 +84,20 @@ Page({
   },
 
   onCommentSubmit: function (ev) {
-    const content = ev.detail.content
+    const content = ev.detail.content.trim()
     const postid = ev.detail.postid
     console.log(content)
     console.log(postid)
+
+    if (this.data.loginName === null) {
+      modalPrompt.login('发表评论')
+      return
+    } else if (content.length < 2) {
+      modalPrompt.wordCnt(2)
+      return
+    } 
+
+    console.log(`comment as ${this.data.loginName}!`)
   },
 
   onTestNotification: function () {
