@@ -118,7 +118,9 @@ Page({
 
   onCommentSubmit: function (ev) {
     const content = ev.detail.content
+    const postid = ev.detail.postid
     console.log(content)
+    console.log(postid)
   },
 
   onTestNotification: function () {

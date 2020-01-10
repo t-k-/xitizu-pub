@@ -47,7 +47,9 @@
 
   <view class="separator" />
 
-  <comment-input bind:submit="onCommentSubmit"></comment-input>
+  <comment-input bind:submit="onCommentSubmit"
+  label="讨论" postid="2019">
+  </comment-input>
 
   <view class="flex-container flex-justify-between">
   

@@ -4,6 +4,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    label: {
+      type: String,
+      value: "comment"
+    },
+    postid: {
+      type: Number,
+      value: 0
+    }
   },
 
   /**
@@ -48,7 +56,9 @@ Component({
     },
     onSubmit: function () {
       const content = this.data.content.trim()
+      const postid = this.properties.postid
       this.triggerEvent('submit', {
+        postid: postid,
         content: content
       })
     }
