@@ -5,12 +5,14 @@ const app = getApp()
 Page({
   data: {
     loginName: null,
+    loginAvatar: null,
     questionID: 'km2019'
   },
 
   onLogin: function (ev) {
     this.setData({
-      loginName: ev.detail.nickName
+      loginName: ev.detail.nickName,
+      loginAvatar: ev.detail.avatarUrl
     })
   },
 
@@ -33,7 +35,7 @@ Page({
                 (res) => {
                   console.log('watch', res)
                   resolve(true)
-                })
+              })
             } else {
               console.log('user accepts notification', res)
               resolve(false)
@@ -86,10 +88,10 @@ Page({
   onCommentSubmit: function (ev) {
     const content = ev.detail.content.trim()
     const postid = ev.detail.postid
-    console.log(content)
-    console.log(postid)
+    const loginName = this.data.loginName
+    const loginAvatar = this.data.loginAvatar
 
-    if (this.data.loginName === null) {
+    if (loginName === null) {
       modalPrompt.login('发表评论')
       return
     } else if (content.length < 2) {
@@ -97,7 +99,15 @@ Page({
       return
     } 
 
-    console.log(`comment as ${this.data.loginName}!`)
+    request.cloud('comment', 'post', {
+      postid: postid,
+      content: content,
+      loginName: loginName,
+      loginAvatar: loginAvatar
+
+    }, (res) => {
+        console.log('success: ', res)
+    })
   },
 
   onTestNotification: function () {
