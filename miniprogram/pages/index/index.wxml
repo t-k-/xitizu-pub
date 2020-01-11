@@ -42,7 +42,8 @@
 
   <view class="separator" />
 
-  <comment-area class="comment-area" postid="{{questionID}}">
+  <comment-area class="comment-area" postid="{{questionID}}"
+   loginName="{{loginName}}" loginAvatar="{{loginAvatar}}">
   </comment-area>
 
   <view class="flex-container flex-justify-between">

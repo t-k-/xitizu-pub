@@ -1,5 +1,6 @@
 const moment = require("../../common-utils/vendor/moment/moment-cn.js")
 const request = require("../../common-utils/request.js")
+const modalPrompt = require("../../common-utils/modal-prompt.js")
 
 moment.locale('zh-cn')
 // console.log(moment.locale())
@@ -10,6 +11,14 @@ Component({
    */
   properties: {
     "postid": {
+      type: String,
+      value: null
+    },
+    "loginName": {
+      type: String,
+      value: null
+    },
+    "loginAvatar": {
       type: String,
       value: null
     }
@@ -71,11 +80,13 @@ Component({
     onCommentSubmit: function (ev) {
       const content = ev.detail.content.trim()
       const postid = ev.detail.postid
-      const loginName = this.data.loginName
-      const loginAvatar = this.data.loginAvatar
+      const loginName = this.properties.loginName
+      const loginAvatar = this.properties.loginAvatar
       var vm = this
 
-      if (loginName === null) {
+      console.log(loginName, loginAvatar)
+
+      if (loginName.trim().length == 0) {
         modalPrompt.login('发表评论')
         return
       } else if (content.length < 2) {

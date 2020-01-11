@@ -19,6 +19,7 @@
 </view>
 
 <view class="comment-editor">
-  <comment-input id="comment-input" bind:submit="onCommentSubmit" placeholder="添加评论 ..." btnLabel="评论" postid="{{postid}}">
+  <comment-input id="comment-input" bind:submit="onCommentSubmit"
+  placeholder="添加评论 ..." btnLabel="评论" postid="{{postid}}">
   </comment-input>
 </view>

@@ -1,4 +1,3 @@
-const modalPrompt = require("../../common-utils/modal-prompt.js")
 const request = require("../../common-utils/request.js")
 
 const app = getApp()
@@ -78,6 +77,8 @@ Page({
 
     this.starButton.setOff()
     this.awardButton.setOff()
+
+    console.log(this.loginName)
 
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
