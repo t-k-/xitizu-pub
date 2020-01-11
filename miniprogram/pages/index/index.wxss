@@ -44,27 +44,3 @@
   border-left: none;
   border-right: none;
 }
-
-.comment {
-  border-top: 1px solid white;
-  background-color: floralwhite;
-  padding: 2px 0 3px 5px;
-}
-
-.comment-user {
-  color:cornflowerblue;
-  font-weight: 800;
-}
-
-.comment-label {
-  padding: 2px 0 3px 5px;
-}
-
-.comment-time {
-  font-weighht: 100;
-  color: gainsboro;
-}
-
-.comment-editor {
-  margin-top: 10px;
-}
