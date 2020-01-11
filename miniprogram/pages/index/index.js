@@ -1,6 +1,10 @@
 const modalPrompt = require("../../common-utils/modal-prompt.js")
 const request = require("../../common-utils/request.js")
-const moment = require("../../common-utils/vendor/moment/moment.js")
+const moment = require("../../common-utils/vendor/moment/moment-cn.js")
+
+moment.locale('zh-cn')
+console.log(moment.locale())
+
 const app = getApp()
 
 Page({
