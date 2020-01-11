@@ -1,5 +1,6 @@
 const modalPrompt = require("../../common-utils/modal-prompt.js")
 const request = require("../../common-utils/request.js")
+const moment = require("../../common-utils/vendor/moment/moment.js")
 const app = getApp()
 
 Page({
@@ -17,16 +18,34 @@ Page({
     })
   },
 
-  onPullDownRefresh: function () {
-    const questionID = this.data.questionID
+  refreshPostComments: async function (postid) {
+    var vm = this
     request.cloud('comment', 'pull', {
-      postid: questionID
+      postid: postid
     }, (res) => {
-      console.log('success: ', res)
+      /* extract array */
       const arr = res.result.ret.detail.list
-      console.log(arr)
-      wx.stopPullDownRefresh()
+      console.log('[pull comments] ', arr)
+
+      /* insert moment string for each item */
+      for (var i = 0; i < arr.length; i++) {
+        var item = arr[i]
+        item['timestr'] = moment(item.timestamp).fromNow()
+      }
+
+      /* set view data */
+      vm.setData({
+        [`comments.${postid}`]: arr
+      })
     })
+  },
+
+  onPullDownRefresh: async function () {
+    const questionID = this.data.questionID
+    await this.refreshPostComments(questionID)
+
+    /* stop pull down loading */
+    wx.stopPullDownRefresh()
   },
 
   onWatchBtnTap: function () {
@@ -75,8 +94,10 @@ Page({
     this.watchButton = this.selectComponent("#watchButton")
     this.awardButton = this.selectComponent("#awardButton")
 
-    this.starButton.setOff();
-    this.awardButton.setOff();
+    this.starButton.setOff()
+    this.awardButton.setOff()
+
+    this.refreshPostComments(this.data.questionID)
 
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {

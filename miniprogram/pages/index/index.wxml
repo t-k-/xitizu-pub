@@ -42,7 +42,11 @@
 
   <view class="separator" />
 
-  <comment-input bind:submit="onCommentSubmit" label="评论" postid="km2019">
+  <view wx:for="{{comments[questionID]}}" wx:key="timestamp">
+  {{item.openid[0].name}} {{item.content}}
+  {{item.timestr}}
+  </view>
+  <comment-input bind:submit="onCommentSubmit" label="评论" postid="{{questionID}}">
   </comment-input>
 
   <view class="flex-container flex-justify-between">
