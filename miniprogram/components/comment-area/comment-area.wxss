@@ -14,10 +14,6 @@
   min-width: 10px;
 }
 
-.flag {
-  padding: 0 2px 0 2px;
-}
-
 .comment-user {
   color:cornflowerblue;
   font-weight: 800;

@@ -1,6 +1,6 @@
 <view class="comment-label">
   <text class="fa fa-comment-o"></text>
-  <text> 评论：回复、 [举报、赞同、踩]、[删除、修改]</text>
+  <text> 评论：[回复、举报、赞同、踩]、[删除、修改]。展示剩下 13 条。</text>
 </view>
 
 <view>
@@ -13,8 +13,8 @@
       {{item.content}}
     </view>
     <view class="comment-flags">
-      <text class="fa fa-flag flag"></text>
-      <text class="flag">+3</text>
+      <text class="fa fa-flag"></text> 1
+      <text class="fa fa-thumbs-o-up"></text> 3
     </view>
     <view class="comment-time">
       {{item.timestr}}
