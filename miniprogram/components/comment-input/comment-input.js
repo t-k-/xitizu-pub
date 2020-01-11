@@ -4,9 +4,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    label: {
+    btnLabel: {
       type: String,
       value: "comment"
+    },
+    placeholder: {
+      type: String,
+      value: "..."
     },
     postid: {
       type: String,

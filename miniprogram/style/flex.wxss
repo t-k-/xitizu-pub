@@ -34,6 +34,14 @@
   justify-content: flex-start;
 }
 
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-end {
+  align-items: flex-end;
+}
+
 .flex-test-item {
   border: 1px solid blueviolet;
 }

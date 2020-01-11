@@ -1,6 +1,6 @@
 <view class="flex-container flex-justify-space" style="align-items: flex-start">
   <div class="editor flex-g1">
-    <textarea maxlength="4096" auto-height placeholder="{{label}}" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" bindinput="onCommentEdit" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}" disable-default-padding/>
+    <textarea maxlength="4096" auto-height placeholder="{{placeholder}}" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" bindinput="onCommentEdit" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}" disable-default-padding/>
   </div>
-  <button wx:if="{{focused || !empty}}" size="mini"  catchtap="onSubmit" type="primary" style="margin-right: 10px;">{{label}}</button>
+  <button wx:if="{{focused || !empty}}" size="mini"  catchtap="onSubmit" type="primary" style="margin-right: 10px;">{{btnLabel}}</button>
 </view>
