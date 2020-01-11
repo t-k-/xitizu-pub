@@ -1,24 +1,26 @@
 <view class="comment-label">
   <text class="fa fa-comment-o"></text>
-  <text> 评论：[回复、举报、赞同、踩]、[删除、修改]。展示剩下 13 条。</text>
+  <text> 评论：[回复、举报、赞同]、[删除、修改]。展示剩下 13 条。</text>
 </view>
 
 <view>
   <view wx:for="{{comments[postid]}}" wx:key="timestamp"
-    class="flex-container flex-justify-between flex-align-start comment">
-    <view class="comment-user">
-      {{item.openid[0].name}}
-    </view>
+    class="flex-container flex-justify-between flex-align-center comment">
+
     <view class="flex-g1">
+      <text class="comment-user">{{item.openid[0].name}}</text>
       {{item.content}}
     </view>
-    <view class="comment-flags">
-      <text class="fa fa-flag"></text> 1
-      <text class="fa fa-thumbs-o-up"></text> 3
+    
+    <view>
+      <view wx:if="{{index < 5}}" class="flag"><text class="fa fa-thumbs-o-up"></text> {{ index * 2 + 1}}</view>
+      <view wx:if="{{index % 3 == 0}}" class="flag"><text class="fa fa-cab"></text> 1</view>
     </view>
+
     <view class="comment-time">
       {{item.timestr}}
     </view>
+
   </view>
 </view>
 
