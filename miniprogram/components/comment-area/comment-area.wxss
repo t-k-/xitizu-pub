@@ -4,9 +4,10 @@
 @import "/style/fa-fontname.wxss";
 
 .comment {
-  border-top: 1px solid white;
+  border-top: 2px solid white;
   background-color: floralwhite;
   padding: 2px 0 3px 5px;
+  word-break: break-all;
 }
 
 .comment-user {
