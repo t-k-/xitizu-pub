@@ -78,14 +78,11 @@ Page({
     this.starButton.setOff()
     this.awardButton.setOff()
 
-    console.log(this.loginName)
-
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
       request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
         res => {
           const ret = res.result.ret
-          console.log('list', ret);
           if (ret.msg == 'success' && ret.detail.length > 0) {
             resolve(true)
           } else {

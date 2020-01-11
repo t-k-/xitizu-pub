@@ -84,8 +84,6 @@ Component({
       const loginAvatar = this.properties.loginAvatar
       var vm = this
 
-      console.log(loginName, loginAvatar)
-
       if (loginName.trim().length == 0) {
         modalPrompt.login('发表评论')
         return
