@@ -1,0 +1,28 @@
+@import "/style/flex.wxss";
+@import "/style/theme.wxss";
+@import "/style/fa-fontface.wxss";
+@import "/style/fa-fontname.wxss";
+
+.comment {
+  border-top: 1px solid white;
+  background-color: floralwhite;
+  padding: 2px 0 3px 5px;
+}
+
+.comment-user {
+  color:cornflowerblue;
+  font-weight: 800;
+}
+
+.comment-label {
+  padding: 2px 0 3px 5px;
+}
+
+.comment-time {
+  font-weighht: 100;
+  color: gainsboro;
+}
+
+.comment-editor {
+  margin: 10px 0 10px 0;
+}

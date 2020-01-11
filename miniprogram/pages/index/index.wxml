@@ -42,30 +42,8 @@
 
   <view class="separator" />
 
-  <view>
-    <view class="comment-label">
-      <text>评论：</text>
-    </view>
-
-    <view>
-      <view wx:for="{{comments[questionID]}}" wx:key="timestamp"
-        class="flex-container flex-justify-between flex-align-start comment">
-        <view class="flex-g1 comment-user">
-          {{item.openid[0].name}}
-        </view>
-        <view class="flex-g3">
-          {{item.content}}
-        </view>
-        <view class="flex-g1 comment-time">
-          {{item.timestr}}
-        </view>
-      </view>
-    </view>
-
-    <view class="comment-editor">
-      <comment-input bind:submit="onCommentSubmit" placeholder="添加评论 ..." btnLabel="评论" postid="{{questionID}}"></comment-input>
-    </view>
-</view>
+  <comment-area class="comment-area" postid="{{questionID}}">
+  </comment-area>
 
   <view class="flex-container flex-justify-between">
   

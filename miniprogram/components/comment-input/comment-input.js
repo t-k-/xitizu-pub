@@ -36,6 +36,12 @@ Component({
         focused: true
       })
     },
+    reset: function () {
+      this.setData({
+        empty: true,
+        content: ''
+      })
+    },
     onCommentBlur: function (ev) {
       const left_val = ev.detail.value.trim()
       if (left_val.length == 0) {

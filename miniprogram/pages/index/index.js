@@ -1,9 +1,5 @@
 const modalPrompt = require("../../common-utils/modal-prompt.js")
 const request = require("../../common-utils/request.js")
-const moment = require("../../common-utils/vendor/moment/moment-cn.js")
-
-moment.locale('zh-cn')
-console.log(moment.locale())
 
 const app = getApp()
 
@@ -22,31 +18,13 @@ Page({
     })
   },
 
-  refreshPostComments: async function (postid) {
-    var vm = this
-    request.cloud('comment', 'pull', {
-      postid: postid
-    }, (res) => {
-      /* extract array */
-      const arr = res.result.ret.detail.list
-      console.log('[pull comments] ', arr)
-
-      /* insert moment string for each item */
-      for (var i = 0; i < arr.length; i++) {
-        var item = arr[i]
-        item['timestr'] = moment(item.timestamp).fromNow()
-      }
-
-      /* set view data */
-      vm.setData({
-        [`comments.${postid}`]: arr
-      })
-    })
-  },
-
   onPullDownRefresh: async function () {
-    const questionID = this.data.questionID
-    await this.refreshPostComments(questionID)
+    let cas = this.selectAllComponents(".comment-area")
+    await Promise.all(cas.map(async (ca) => {
+      return ca.refreshComments()
+    })).catch((err) => {
+      console.log('[caught]', err)
+    })
 
     /* stop pull down loading */
     wx.stopPullDownRefresh()
@@ -101,8 +79,6 @@ Page({
     this.starButton.setOff()
     this.awardButton.setOff()
 
-    this.refreshPostComments(this.data.questionID)
-
     var vm = this
     this.watchButton.setThen(new Promise((resolve, reject) => {
       request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
@@ -117,31 +93,6 @@ Page({
       })
     }))
 
-  },
-
-  onCommentSubmit: function (ev) {
-    const content = ev.detail.content.trim()
-    const postid = ev.detail.postid
-    const loginName = this.data.loginName
-    const loginAvatar = this.data.loginAvatar
-
-    if (loginName === null) {
-      modalPrompt.login('发表评论')
-      return
-    } else if (content.length < 2) {
-      modalPrompt.wordCnt(2)
-      return
-    } 
-
-    request.cloud('comment', 'post', {
-      postid: postid,
-      content: content,
-      loginName: loginName,
-      loginAvatar: loginAvatar
-
-    }, (res) => {
-        console.log('success: ', res)
-    })
   },
 
   onTestNotification: function () {

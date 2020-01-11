@@ -1,0 +1,24 @@
+<view class="comment-label">
+  <text class="fa fa-comment-o"></text>
+  <text> 评论：</text>
+</view>
+
+<view>
+  <view wx:for="{{comments[postid]}}" wx:key="timestamp"
+    class="flex-container flex-justify-between flex-align-start comment">
+    <view class="flex-g1 comment-user">
+      {{item.openid[0].name}}
+    </view>
+    <view class="flex-g3">
+      {{item.content}}
+    </view>
+    <view class="flex-g1 comment-time">
+      {{item.timestr}}
+    </view>
+  </view>
+</view>
+
+<view class="comment-editor">
+  <comment-input id="comment-input" bind:submit="onCommentSubmit" placeholder="添加评论 ..." btnLabel="评论" postid="{{postid}}">
+  </comment-input>
+</view>

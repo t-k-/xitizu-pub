@@ -6,7 +6,7 @@
 }
 
 .editor textarea {
-  background-color: floralwhite; // lavender;
+  background-color: floralwhite;
   width: 100%;
   padding: 4px 4px 4px 4px;
 }
