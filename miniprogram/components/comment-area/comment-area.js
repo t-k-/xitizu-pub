@@ -77,7 +77,7 @@ Component({
       editor.reset()
     },
 
-    onCommentSubmit: function (ev) {
+    onCommentSubmit: async function (ev) {
       const content = ev.detail.content.trim()
       const postid = ev.detail.postid
       const loginName = this.properties.loginName
@@ -85,10 +85,14 @@ Component({
       var vm = this
 
       if (loginName.trim().length == 0) {
-        modalPrompt.login('发表评论')
+        await modalPrompt.login('发表评论')
+        /* reset only submit button */
+        this.selectComponent("#comment-input").resetBtn()
         return
       } else if (content.length < 2) {
-        modalPrompt.wordCnt(2)
+        await modalPrompt.wordCnt(2)
+        /* reset entire editor */
+        this.resetEditor()
         return
       }
 

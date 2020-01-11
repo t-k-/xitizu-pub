@@ -4,7 +4,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    label: {
+    orginLabel: {
       type: String,
       value: "send"
     }
@@ -28,10 +28,15 @@ Component({
    */
   methods: {
     restore: function () {
+      /* clear (if any) wait timer */
+      if (this.waitInterval)
+        clearInterval(this.waitInterval)
+    
       /* restore original label */
       var vm = this
       vm.setData({
-        label: vm.properties.label
+        label: vm.properties.orginLabel,
+        waiting: false
       })
 
       /* fix the width to hold the label */
@@ -42,10 +47,6 @@ Component({
           style: `width: ${width}px`
         })
       }).exec()
-
-      /* clear (if any) wait timer */
-      if (this.waitInterval)
-        clearInterval(this.waitInterval)
     },
 
     wait: function () {

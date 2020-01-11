@@ -2,6 +2,6 @@
   <div class="editor flex-g1">
     <textarea maxlength="4096" auto-height placeholder="{{placeholder}}" show-confirm-bar="{{false}}" bindfocus="onCommentFocus" bindblur="onCommentBlur" bindinput="onCommentEdit" class="{{(focused || !empty)? 'expanded' : ''}}" value="{{content}}" disable-default-padding/>
   </div>
-  <send-button wx:if="{{focused || !empty}}" bind:tap="onSubmit" label="{{btnLabel}}">
+  <send-button id="send-button" wx:if="{{focused || !empty}}" bind:tap="onSubmit" orginLabel="{{btnLabel}}">
   </send-button>
 </view>

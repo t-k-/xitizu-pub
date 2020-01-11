@@ -36,11 +36,17 @@ Component({
         focused: true
       })
     },
+    resetBtn: function () {
+      var sendBtn = this.selectComponent("#send-button")
+      if (sendBtn)
+        sendBtn.restore()
+    },
     reset: function () {
       this.setData({
         empty: true,
         content: ''
       })
+      this.resetBtn()
     },
     onCommentBlur: function (ev) {
       const left_val = ev.detail.value.trim()
