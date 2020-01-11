@@ -43,6 +43,7 @@ exports.main = async (event, context) => {
       data: {
         postid: args.postid,
         content: args.content,
+        timestamp: Date.now(),
         openid: openid
       }
     }).then(res => {
@@ -52,6 +53,24 @@ exports.main = async (event, context) => {
     })
 
   });
+
+  app.router('pull', async (ctx, next) => {
+    await db.collection('comment').aggregate()
+    .lookup({
+      from: 'user',
+      localField: 'openid',
+      foreignField: '_id',
+      as: 'openid'
+    }).match({
+        postid: args.postid
+    }).sort({
+      'timestamp': 1
+    }).end().then(res => {
+      ctx.body.ret = { msg: "success", detail: res };
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e };
+    })
+  })
 
   return app.serve()
 }

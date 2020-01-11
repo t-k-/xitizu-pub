@@ -6,7 +6,8 @@ Page({
   data: {
     loginName: null,
     loginAvatar: null,
-    questionID: 'km2019'
+    questionID: 'km2019',
+    comments: {}
   },
 
   onLogin: function (ev) {
@@ -17,7 +18,15 @@ Page({
   },
 
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh()
+    const questionID = this.data.questionID
+    request.cloud('comment', 'pull', {
+      postid: questionID
+    }, (res) => {
+      console.log('success: ', res)
+      const arr = res.result.ret.detail.list
+      console.log(arr)
+      wx.stopPullDownRefresh()
+    })
   },
 
   onWatchBtnTap: function () {
