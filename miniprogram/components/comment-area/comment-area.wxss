@@ -10,9 +10,20 @@
   word-break: break-all;
 }
 
+.comment-flags {
+  min-width: 10px;
+}
+
+.flag {
+  padding: 0 2px 0 2px;
+}
+
 .comment-user {
   color:cornflowerblue;
   font-weight: 800;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .comment-label {
@@ -20,7 +31,9 @@
 }
 
 .comment-time {
-  font-weighht: 100;
+  font-weight: 100;
+  width: 160rpx;
+  text-align: center;
   color: gainsboro;
 }
 
