@@ -99,7 +99,6 @@ Component({
         loginAvatar: loginAvatar
 
       }, async (res) => {
-        console.log('success: ', res)
 
         try {
           await vm.refreshComments()

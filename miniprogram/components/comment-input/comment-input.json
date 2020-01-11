@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "send-button": "../../components/send-button/send-button"
+  }
 }

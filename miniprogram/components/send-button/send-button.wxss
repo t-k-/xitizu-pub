@@ -1,0 +1,4 @@
+button.waiting {
+  background-color: inherit;
+  color:lightslategray;
+}

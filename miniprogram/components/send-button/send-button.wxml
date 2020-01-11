@@ -1,0 +1,4 @@
+<button id="sendBtn" catchtap="onTap" type="primary" hover-class="none"
+  class="{{waiting? 'waiting' : ''}}" style="{{style}}" size="mini">
+  {{label}}
+</button>
