@@ -1,6 +1,6 @@
 <view class="comment-label">
   <text class="fa fa-comment-o"></text>
-  <text> 评论：[回复、举报、赞同]、[删除、修改]。展示剩下 13 条。</text>
+  <text> 评论：</text>
 </view>
 
 <view>

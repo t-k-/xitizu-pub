@@ -10,14 +10,8 @@
     </div>
 
     <div style="padding-top: 20px;">
-      <div style="padding-right:15px;">
-        <text style="padding: 0 10px 0 10px" class="fa fa-trophy"></text>
-        悬赏 2 元
-      </div>
-      <div style="padding-right:15px;">
-        <text style="padding: 0 10px 0 10px" class="fa fa-share"></text>
-        转发
-      </div>
+        <text style="padding: 0 5px 0 5px; color: red" class="fa fa-heart"></text>
+        该提问者之前参与过 6 次打赏，共支付赏金 20 元。 
     </div>
 
   </view>
@@ -38,7 +32,7 @@
   <view class="separator" />
 
   <view>打赏者列表</view>
-  <view>参与者列表</view>
+  <view>贡献者列表</view>
 
   <view class="separator" />
 
