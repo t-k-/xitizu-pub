@@ -36,3 +36,8 @@
 .comment-editor {
   margin: 10px 0 10px 0;
 }
+
+.comment-btn {
+  background-color: inherit;
+  color: cornflowerblue;
+}

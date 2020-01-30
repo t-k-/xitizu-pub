@@ -28,7 +28,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    selectedIdx: -1,
+    comments: []
   },
 
   attached: function () {
@@ -42,6 +43,15 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    selectComment: function (ev) {
+      const idx = parseInt(ev.currentTarget.id)
+
+      if (idx == this.data.selectedIdx) {
+        this.setData({ selectedIdx: -1 })
+      } else {
+        this.setData({ selectedIdx: idx })
+      }
+    },
     refreshComments: async function () {
       var vm = this
       const postid = this.properties.postid

@@ -4,21 +4,30 @@
 </view>
 
 <view>
-  <view wx:for="{{comments[postid]}}" wx:key="timestamp"
-    class="flex-container flex-justify-between flex-align-center comment">
+  <view wx:for="{{comments[postid]}}" wx:key="timestamp" wx:for-index="idx" class="comment">
+    <view class="flex-container flex-justify-between flex-align-center"
+     id="{{idx}}" bindtap="selectComment">
 
-    <view class="flex-g1">
-      <text class="comment-user">{{item.openid[0].name}}</text>
-      {{item.content}}
-    </view>
-    
-    <view>
-      <view wx:if="{{index < 5}}" class="flag"><text class="fa fa-thumbs-o-up"></text> {{ index * 2 + 1}}</view>
-      <view wx:if="{{index % 3 == 0}}" class="flag"><text class="fa fa-cab"></text> 1</view>
+      <view class="flex-g1">
+        <text class="comment-user">{{item.openid[0].name}}</text>
+        {{item.content}}
+      </view>
+      
+      <view>
+        <view wx:if="{{idx < 5}}" class="flag"><text class="fa fa-thumbs-o-up"></text> {{ idx * 2 + 1}}</view>
+        <view wx:if="{{idx % 3 == 0}}" class="flag"><text class="fa fa-flag"></text> 1</view>
+      </view>
+
+      <view class="comment-time">
+        {{item.timestr}}
+      </view>
     </view>
 
-    <view class="comment-time">
-      {{item.timestr}}
+    <view class="flex-container" wx:if="{{idx == selectedIdx}}">
+      <view><button class="comment-btn"><text class="fa fa-thumbs-o-up"></text> 顶</button></view>
+      <view><button class="comment-btn"><text class="fa fa-thumbs-o-down"></text> 踩</button></view>
+      <view><button class="comment-btn"><text class="fa fa-reply"></text> 回复</button></view>
+      <view><button class="comment-btn"><text class="fa fa-flag"></text> 举报</button></view>
     </view>
 
   </view>
