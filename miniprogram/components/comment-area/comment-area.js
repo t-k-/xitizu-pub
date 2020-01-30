@@ -67,13 +67,19 @@ Component({
       }
     },
 
-    onVoteBtnTap: function (ev) {
+    onVoteBtnTap: async function (ev) {
+      const loginName = this.properties.loginName
       const commentID = ev.currentTarget.id
       const detail = ev.detail
       var vm = this
+
+      // allow voting without login
+      /* if (loginName.trim().length == 0) {
+        await modalPrompt.login('点赞')
+        return
+      } */
       
       if (detail.state == 'on') {
-
         request.cloud('comment', 'upvote', {
           commentID: commentID
         }, (res) => {
@@ -86,18 +92,15 @@ Component({
           vm.refreshComments()
           vm.updateVoteBtn(false)
         })
-
       } else {
-
         request.cloud('comment', 'downvote', {
           commentID: commentID
         }, (res) => {
           vm.refreshComments()
           vm.updateVoteBtn(true)
         })
-
       }
-      
+  
     },
 
     selectComment: function (ev) {

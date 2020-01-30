@@ -32,8 +32,8 @@ exports.main = async (event, context) => {
   const db = cloud.database(cloud_env)
 
   app.use(async (ctx, next) => {
-    ctx.body = {};
-    await next();
+    ctx.body = {}
+    await next()
   });
 
   app.router('role', async (ctx, next) => {
