@@ -23,7 +23,7 @@
       </view>
     </view>
 
-    <view class="flex-container" wx:if="{{idx == selectedIdx}}">
+    <view class="flex-container flex-wrap" wx:if="{{idx == selectedIdx}}">
       <view><button class="comment-btn"><text class="fa fa-thumbs-o-up"></text> 顶</button></view>
       <view><button class="comment-btn"><text class="fa fa-thumbs-o-down"></text> 踩</button></view>
       <view><button class="comment-btn"><text class="fa fa-reply"></text> 回复</button></view>
