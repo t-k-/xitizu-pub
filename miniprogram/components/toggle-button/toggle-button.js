@@ -16,12 +16,24 @@ Component({
     "iconOff": {
       type: String,
       value: null
+    },
+    "oneline": {
+      type: Boolean,
+      value: false
+    },
+    "bindstyle": {
+      type: String,
+      value: "min-width: 65px"
     }
   },
 
   data: {
     label: "undefined",
     state: "waiting"
+  },
+
+  created: function () {
+    //this.setWait()
   },
 
   methods: {
@@ -61,16 +73,16 @@ Component({
       }, 300)
     },
     setThen: async function (promise) {
-        this.setWait()
-        const state = await promise
-        if (state)
-          this.setOn()
-        else
-          this.setOff()
+      this.setWait()
+      const state = await promise
+      if (state)
+        this.setOn()
+      else
+        this.setOff()
     },
     onTap: function () {
       if (this.data.state !== 'waiting') {
-        this.triggerEvent('tap')
+        this.triggerEvent('tap', {state: this.data.state})
       }
     }
   }

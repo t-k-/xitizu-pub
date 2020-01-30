@@ -10,3 +10,8 @@ button.on {
   background-color: inherit;
   color: cornflowerblue;
 }
+
+.label-wrap {
+  display: inline-block;
+  /* background-color: gainsboro; */
+}
