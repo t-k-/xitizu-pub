@@ -44,11 +44,68 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
+    updateVoteBtn: function (commentID) {
+      var voteBtns = this.selectAllComponents(".voteBtn")
+
+      var promise = new Promise((resolve, reject) => {
+        if (typeof commentID == 'boolean') {
+          resolve(commentID)
+          return
+        }
+        
+        request.cloud('comment', 'not-voted', {
+          commentID: commentID
+        }, (res) => {
+          const val = res.result.ret.detail
+          resolve(val)
+        })
+      })
+        
+      for (var i = 0; i < voteBtns.length; i++) {
+        voteBtns[i].setThen(promise)
+      }
+    },
+
+    onVoteBtnTap: function (ev) {
+      const commentID = ev.currentTarget.id
+      const detail = ev.detail
+      var vm = this
+      
+      if (detail.state == 'on') {
+
+        request.cloud('comment', 'upvote', {
+          commentID: commentID
+        }, (res) => {
+          const msg = res.result.ret.msg
+          if (msg == 'error') {
+            console.log('already voted.')
+            vm.updateVoteBtn(false)
+            return
+          }
+          vm.refreshComments()
+          vm.updateVoteBtn(false)
+        })
+
+      } else {
+
+        request.cloud('comment', 'downvote', {
+          commentID: commentID
+        }, (res) => {
+          vm.refreshComments()
+          vm.updateVoteBtn(true)
+        })
+
+      }
+      
+    },
+
     selectComment: function (ev) {
       const idx = parseInt(ev.currentTarget.id)
       const postid = this.properties.postid
       const comment = this.data.comments[postid][idx]
 
+      /* select or unselect comment row */
       if (idx == this.data.selectedIdx) {
         this.setData({
           selectedIdx: -1,
@@ -63,6 +120,8 @@ Component({
         request.cloud('comment', 'role', {
           openid: comment.openid[0]._id
         }, (res) => {
+
+          /* set option panel depending on user role */
           const detail = res.result.ret.detail
           if (detail == 'owner') {
             this.setData({
@@ -75,9 +134,20 @@ Component({
               selectedRole: 'other'
             })
           }
+
+          /* initialize voted state */
+          wx.nextTick(() => {
+            if (comment.votes.length == 0) { /* no one voted */
+              this.updateVoteBtn(true) /* not voted */
+            } else {
+              this.updateVoteBtn(comment._id)
+            }
+          })
+
         })
       }
     },
+
     refreshComments: async function () {
       var vm = this
       const postid = this.properties.postid

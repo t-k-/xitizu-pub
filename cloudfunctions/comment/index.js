@@ -62,20 +62,89 @@ exports.main = async (event, context) => {
   });
 
   app.router('pull', async (ctx, next) => {
+    const $ = db.command.aggregate
     await db.collection('comment').aggregate()
     .lookup({
       from: 'user',
       localField: 'openid',
       foreignField: '_id',
       as: 'openid'
-    }).match({
+    })
+    .lookup({
+      from: 'votes',
+      localField: '_id',
+      foreignField: 'toid',
+      as: 'votes'
+    })
+    .match({
         postid: args.postid
-    }).sort({
+    })
+    /*.unwind({
+      path: '$votes',
+      preserveNullAndEmptyArrays: true
+    })
+    .group({
+      _id: '$_id',
+      openid: 
+      votes_cnt: $.sum(1) 
+    })*/
+    .sort({
       'timestamp': 1
     }).end().then(res => {
       ctx.body.ret = { msg: "success", detail: res }
     }).catch(e => {
       ctx.body.ret = { msg: 'error', detail: e }
+    })
+  })
+
+  app.router('not-voted', async (ctx, next) => {
+    const commentID = args.commentID
+
+    const ret = await db.collection('votes').where({
+      toid: commentID,
+      by: openid
+    }).count();
+    const not_voted = (ret.total == 0)
+    ctx.body.ret = { msg: "success", detail: not_voted }
+  })
+
+  app.router('upvote', async (ctx, next) => {
+    const commentID = args.commentID
+
+    const ret = await db.collection('votes').where({
+      toid: commentID,
+      by: openid
+    }).count();
+    const total = ret.total
+
+    if (total > 0) {
+      ctx.body.ret = { msg: 'success', detail: 'already voted.' }
+      return
+    }
+
+    await db.collection('votes').add({
+      data: {
+        toid: commentID,
+        by: openid
+      }
+    }).then(res => {
+      ctx.body.ret = { msg: "success", detail: res }
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e }
+    })
+  })
+
+  app.router('downvote', async (ctx, next) => {
+    const commentID = args.commentID
+    await db.collection('votes').where({
+      toid: commentID,
+      by: openid
+    })
+    .remove()
+    .then(res => {
+      ctx.body.ret = { msg: "success", detail: res };
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e };
     })
   })
 

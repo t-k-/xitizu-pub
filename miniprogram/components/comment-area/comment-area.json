@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "comment-input": "../comment-input/comment-input"
+    "comment-input": "../comment-input/comment-input",
+    "toggle-button": "../../components/toggle-button/toggle-button"
   }
 }
