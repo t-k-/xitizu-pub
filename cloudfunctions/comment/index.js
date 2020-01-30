@@ -36,6 +36,13 @@ exports.main = async (event, context) => {
     await next();
   });
 
+  app.router('role', async (ctx, next) => {
+    if (args.openid == openid)
+      ctx.body.ret = { msg: "success", detail: 'owner'}
+    else
+      ctx.body.ret = { msg: "success", detail: 'other' }
+  })
+
   app.router('post', async (ctx, next) => {
     await updateUserInfo(db, openid, args.loginName, args.loginAvatar)
 
@@ -47,9 +54,9 @@ exports.main = async (event, context) => {
         openid: openid
       }
     }).then(res => {
-      ctx.body.ret = { msg: "success", detail: res };
+      ctx.body.ret = { msg: "success", detail: res }
     }).catch(e => {
-      ctx.body.ret = { msg: 'error', detail: e };
+      ctx.body.ret = { msg: 'error', detail: e }
     })
 
   });
@@ -66,9 +73,9 @@ exports.main = async (event, context) => {
     }).sort({
       'timestamp': 1
     }).end().then(res => {
-      ctx.body.ret = { msg: "success", detail: res };
+      ctx.body.ret = { msg: "success", detail: res }
     }).catch(e => {
-      ctx.body.ret = { msg: 'error', detail: e };
+      ctx.body.ret = { msg: 'error', detail: e }
     })
   })
 

@@ -29,7 +29,8 @@ Component({
    */
   data: {
     selectedIdx: -1,
-    comments: []
+    selectedRole: null,
+    comments: {}
   },
 
   attached: function () {
@@ -45,11 +46,36 @@ Component({
   methods: {
     selectComment: function (ev) {
       const idx = parseInt(ev.currentTarget.id)
+      const postid = this.properties.postid
+      const comment = this.data.comments[postid][idx]
 
       if (idx == this.data.selectedIdx) {
-        this.setData({ selectedIdx: -1 })
+        this.setData({
+          selectedIdx: -1,
+          selectedRole: null
+        })
       } else {
-        this.setData({ selectedIdx: idx })
+        this.setData({
+          selectedIdx: idx,
+          selectedRole: null
+        })
+
+        request.cloud('comment', 'role', {
+          openid: comment.openid[0]._id
+        }, (res) => {
+          const detail = res.result.ret.detail
+          if (detail == 'owner') {
+            this.setData({
+              selectedIdx: idx,
+              selectedRole: 'owner'
+            })
+          } else {
+            this.setData({
+              selectedIdx: idx,
+              selectedRole: 'other'
+            })
+          }
+        })
       }
     },
     refreshComments: async function () {

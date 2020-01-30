@@ -41,3 +41,8 @@
   background-color: inherit;
   color: cornflowerblue;
 }
+
+.comment-btn-waiting {
+  background-color: inherit;
+  color: gainsboro;
+}
