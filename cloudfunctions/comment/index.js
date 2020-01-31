@@ -82,6 +82,12 @@ exports.main = async (event, context) => {
       limit = MAX_ITEMS
     }
 
+    var from_ = page * PAGE_ITEMS
+    if (args.updateUptoHere) {
+      from_ = 0
+      limit = (page + 1) * PAGE_ITEMS
+    }
+
     await db.collection('comment').aggregate()
     .match({
       postid: args.postid
@@ -107,7 +113,7 @@ exports.main = async (event, context) => {
     .sort({
       'timestamp': 1
     })
-    .skip(page * PAGE_ITEMS)
+    .skip(from_)
     .limit(limit)
     .end()
     .then(res => {

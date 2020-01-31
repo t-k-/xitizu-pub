@@ -36,7 +36,7 @@ Component({
   },
 
   attached: function () {
-    this.refreshComments()
+    this.refreshComments(0)
     .catch((err) => {
       console.error('[caught] ', err)
     })
@@ -156,12 +156,14 @@ Component({
     refreshComments: async function (specifyPage) {
       var vm = this
       const postid = this.properties.postid
+      const updateUptoHere = (specifyPage === undefined)
       const page = specifyPage || this.data.curPage
 
       return new Promise((resolve, reject) => {
         request.cloud('comment', 'pull', {
           page: page,
-          postid: postid
+          postid: postid,
+          updateUptoHere: updateUptoHere
         }, (res) => {
           /* extract returned data */
           const arr = res.result.ret.detail.list
@@ -179,7 +181,7 @@ Component({
 
           /* set view data */
           const oldArr = this.data.comments[postid]
-          var newArr = (page == 0 || page == -1) ? arr : [...oldArr, ...arr] 
+          var newArr = (page == 0 || page == -1 || updateUptoHere) ? arr : [...oldArr, ...arr] 
           vm.setData({
             [`comments.${postid}`]: newArr,
             curPage: (page == -1) ? total : page,
