@@ -35,6 +35,7 @@ Component({
       this.setData({
         focused: true
       })
+      this.triggerEvent('expanded')
     },
     resetBtn: function () {
       var sendBtn = this.selectComponent("#send-button")

@@ -44,12 +44,12 @@
   </view>
 
   <view wx:if="{{left > 0}}" class="expand-container">
-  <text bindtap="onExpand">展开 {{left > 10 ? 10 : left}} 条评论 ...</text>
+  <text bindtap="onExpand">展开之后 {{left > 10 ? 10 : left}} 条评论 ...</text>
   </view>
 </view>
 
 <view class="comment-editor">
-  <comment-input id="comment-input" bind:submit="onCommentSubmit"
+  <comment-input id="comment-input" bind:submit="onCommentSubmit" bind:expanded="onEditorExpanded"
   placeholder="添加评论 ..." btnLabel="评论" postid="{{postid}}">
   </comment-input>
 </view>

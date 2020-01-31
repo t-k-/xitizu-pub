@@ -4,6 +4,7 @@ const TcbRouter = require('tcb-router')
 
 const cloud_env = cloud.DYNAMIC_CURRENT_ENV
 const PAGE_ITEMS = 10
+const MAX_ITEMS = 100
 
 cloud.init()
 
@@ -69,8 +70,17 @@ exports.main = async (event, context) => {
     }).count()
     const total = count.total
     const total_pages = Math.ceil(count.total / PAGE_ITEMS)
-    const page = args.page || 0
-    var left = (page + 1 < total_pages) ? left = total - (page + 1) * PAGE_ITEMS : 0
+    var page = args.page || 0
+
+    var left, limit
+    if (page != -1) {
+      left = (page + 1 < total_pages) ? left = total - (page + 1) * PAGE_ITEMS : 0;
+      limit = PAGE_ITEMS
+    } else {
+      page = 0
+      left = 0
+      limit = MAX_ITEMS
+    }
 
     await db.collection('comment').aggregate()
     .match({
@@ -98,7 +108,7 @@ exports.main = async (event, context) => {
       'timestamp': 1
     })
     .skip(page * PAGE_ITEMS)
-    .limit(PAGE_ITEMS)
+    .limit(limit)
     .end()
     .then(res => {
       ctx.body.ret = { msg: "success", detail: res, total: total_pages, left: left }

@@ -156,7 +156,7 @@ Component({
     refreshComments: async function (specifyPage) {
       var vm = this
       const postid = this.properties.postid
-      const page = specifyPage || 0
+      const page = specifyPage || this.data.curPage
 
       return new Promise((resolve, reject) => {
         request.cloud('comment', 'pull', {
@@ -168,7 +168,8 @@ Component({
           const total = res.result.ret.total
           const left = res.result.ret.left
 
-          console.log(`[pull comments (left ${left}, ${total} pages)] `, arr)
+          console.log(
+            `[pull comments @ page ${page} (left ${left} comments, ${total} pages in total)]`, arr)
 
           /* insert moment string for each item */
           for (var i = 0; i < arr.length; i++) {
@@ -178,10 +179,10 @@ Component({
 
           /* set view data */
           const oldArr = this.data.comments[postid]
-          var newArr = (page == 0) ? arr : [...oldArr, ...arr] 
+          var newArr = (page == 0 || page == -1) ? arr : [...oldArr, ...arr] 
           vm.setData({
             [`comments.${postid}`]: newArr,
-            curPage: page,
+            curPage: (page == -1) ? total : page,
             left: left
           })
 
@@ -194,6 +195,10 @@ Component({
 
     onExpand: function () {
       this.refreshComments(this.data.curPage + 1)
+    },
+
+    onEditorExpanded: function () {
+      this.refreshComments(-1)
     },
 
     resetEditor: function () {
@@ -229,7 +234,7 @@ Component({
       }, async (res) => {
 
         try {
-          await vm.refreshComments()
+          await vm.refreshComments(-1)
           /* reset Editor only when comment sent successfully. */
           vm.resetEditor()
         } catch (err) {
