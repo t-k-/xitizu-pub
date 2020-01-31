@@ -3,6 +3,7 @@ const cloud = require('wx-server-sdk')
 const TcbRouter = require('tcb-router')
 
 const cloud_env = cloud.DYNAMIC_CURRENT_ENV
+const PAGE_ITEMS = 10
 
 cloud.init()
 
@@ -63,7 +64,18 @@ exports.main = async (event, context) => {
 
   app.router('pull', async (ctx, next) => {
     const $ = db.command.aggregate
+    const count = await db.collection('comment').where({
+      postid: args.postid
+    }).count()
+    const total = count.total
+    const total_pages = Math.ceil(count.total / PAGE_ITEMS)
+    const page = args.page || 0
+    var left = (page + 1 < total_pages) ? left = total - (page + 1) * PAGE_ITEMS : 0
+
     await db.collection('comment').aggregate()
+    .match({
+      postid: args.postid
+    })
     .lookup({
       from: 'user',
       localField: 'openid',
@@ -76,24 +88,22 @@ exports.main = async (event, context) => {
       foreignField: 'toid',
       as: 'votes'
     })
-    .match({
-        postid: args.postid
+    .addFields({
+      num_votes: $.size('$votes')
     })
-    /*.unwind({
-      path: '$votes',
-      preserveNullAndEmptyArrays: true
+    .project({
+      votes: false
     })
-    .group({
-      _id: '$_id',
-      openid: 
-      votes_cnt: $.sum(1) 
-    })*/
     .sort({
       'timestamp': 1
-    }).end().then(res => {
-      ctx.body.ret = { msg: "success", detail: res }
+    })
+    .skip(page * PAGE_ITEMS)
+    .limit(PAGE_ITEMS)
+    .end()
+    .then(res => {
+      ctx.body.ret = { msg: "success", detail: res, total: total_pages, left: left }
     }).catch(e => {
-      ctx.body.ret = { msg: 'error', detail: e }
+      ctx.body.ret = { msg: 'error', detail: e, total: 0, left: 0 }
     })
   })
 

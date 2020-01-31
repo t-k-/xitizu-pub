@@ -46,3 +46,10 @@
   background-color: inherit;
   color: gainsboro;
 }
+
+.expand-container {
+  padding-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: cornflowerblue;
+}

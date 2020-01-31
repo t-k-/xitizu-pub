@@ -14,7 +14,7 @@
       </view>
       
       <view>
-        <view wx:if="{{item.votes.length > 0}}" class="flag"><text class="fa fa-thumbs-o-up"></text> {{ item.votes.length }}</view>
+        <view wx:if="{{item.num_votes > 0}}" class="flag"><text class="fa fa-thumbs-o-up"></text> {{ item.num_votes }}</view>
         <view wx:if="{{idx % 3 == 0}}" class="flag"><text class="fa fa-flag"></text> 1</view>
       </view>
 
@@ -41,6 +41,10 @@
       <view><button class="comment-btn" size="mini"><text class="fa fa-edit"></text> 修改</button></view>
     </view>
 
+  </view>
+
+  <view wx:if="{{left > 0}}" class="expand-container">
+  <text bindtap="onExpand">展开 {{left > 10 ? 10 : left}} 条评论 ...</text>
   </view>
 </view>
 

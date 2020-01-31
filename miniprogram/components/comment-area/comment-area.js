@@ -30,7 +30,9 @@ Component({
   data: {
     selectedIdx: -1,
     selectedRole: null,
-    comments: {}
+    comments: {},
+    curPage: 0,
+    left: 0
   },
 
   attached: function () {
@@ -140,7 +142,7 @@ Component({
 
           /* initialize voted state */
           wx.nextTick(() => {
-            if (comment.votes.length == 0) { /* no one voted */
+            if (comment.num_votes == 0) { /* no one voted */
               this.updateVoteBtn(true) /* not voted */
             } else {
               this.updateVoteBtn(comment._id)
@@ -151,17 +153,22 @@ Component({
       }
     },
 
-    refreshComments: async function () {
+    refreshComments: async function (specifyPage) {
       var vm = this
       const postid = this.properties.postid
+      const page = specifyPage || 0
 
       return new Promise((resolve, reject) => {
         request.cloud('comment', 'pull', {
+          page: page,
           postid: postid
         }, (res) => {
-          /* extract array */
+          /* extract returned data */
           const arr = res.result.ret.detail.list
-          console.log('[pull comments] ', arr)
+          const total = res.result.ret.total
+          const left = res.result.ret.left
+
+          console.log(`[pull comments (left ${left}, ${total} pages)] `, arr)
 
           /* insert moment string for each item */
           for (var i = 0; i < arr.length; i++) {
@@ -170,8 +177,12 @@ Component({
           }
 
           /* set view data */
+          const oldArr = this.data.comments[postid]
+          var newArr = (page == 0) ? arr : [...oldArr, ...arr] 
           vm.setData({
-            [`comments.${postid}`]: arr
+            [`comments.${postid}`]: newArr,
+            curPage: page,
+            left: left
           })
 
           resolve()
@@ -179,6 +190,10 @@ Component({
           reject('pull comments failed.')
         })
       })
+    },
+
+    onExpand: function () {
+      this.refreshComments(this.data.curPage + 1)
     },
 
     resetEditor: function () {
