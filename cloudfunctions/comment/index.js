@@ -65,13 +65,16 @@ exports.main = async (event, context) => {
 
   app.router('pull', async (ctx, next) => {
     const $ = db.command.aggregate
+    var page = args.page || 0
+
+    /* get total number of comments and pages */
     const count = await db.collection('comment').where({
       postid: args.postid
     }).count()
     const total = count.total
     const total_pages = Math.ceil(count.total / PAGE_ITEMS)
-    var page = args.page || 0
 
+    /* depending on page, pull a new page or the remaining page(s) */
     var left, limit
     if (page != -1) {
       left = (page + 1 < total_pages) ? left = total - (page + 1) * PAGE_ITEMS : 0;
@@ -82,12 +85,14 @@ exports.main = async (event, context) => {
       limit = MAX_ITEMS
     }
 
+    /* only update upto the current page if updateUptoHere is specified */
     var from_ = page * PAGE_ITEMS
     if (args.updateUptoHere) {
       from_ = 0
       limit = (page + 1) * PAGE_ITEMS
     }
 
+    /* pull comments, join with user and vote tables */
     await db.collection('comment').aggregate()
     .match({
       postid: args.postid
