@@ -99,7 +99,7 @@ exports.main = async (event, context) => {
       as: 'openid'
     })
     .lookup({
-      from: 'votes',
+      from: 'vote',
       localField: '_id',
       foreignField: 'toid',
       as: 'votes'
@@ -126,7 +126,7 @@ exports.main = async (event, context) => {
   app.router('not-voted', async (ctx, next) => {
     const commentID = args.commentID
 
-    const ret = await db.collection('votes').where({
+    const ret = await db.collection('vote').where({
       toid: commentID,
       by: openid
     }).count();
@@ -137,7 +137,7 @@ exports.main = async (event, context) => {
   app.router('upvote', async (ctx, next) => {
     const commentID = args.commentID
 
-    const ret = await db.collection('votes').where({
+    const ret = await db.collection('vote').where({
       toid: commentID,
       by: openid
     }).count();
@@ -148,7 +148,7 @@ exports.main = async (event, context) => {
       return
     }
 
-    await db.collection('votes').add({
+    await db.collection('vote').add({
       data: {
         toid: commentID,
         by: openid
@@ -162,7 +162,7 @@ exports.main = async (event, context) => {
 
   app.router('downvote', async (ctx, next) => {
     const commentID = args.commentID
-    await db.collection('votes').where({
+    await db.collection('vote').where({
       toid: commentID,
       by: openid
     })
