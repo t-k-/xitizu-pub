@@ -1,16 +1,16 @@
-<button catchtap="onTap" type="default" hover-class="none"
-class="{{state === 'on' ? 'on' : 'off'}}" size="mini">
-  <view wx:if="{{ !oneline }}">
-    <view style="font-size: 18px; margin-bottom: -6px;">
+<view wx:if="{{ !oneline }}" class="oneline-container">
+  <button catchtap="onTap" type="default" hover-class="none" class="{{state === 'on' ? 'on' : 'off'}}" size="mini">
+    <view style="font-size: 18px; line-height: 1;">
       <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
     </view>
     <view class="label-wrap" style="{{bindstyle}}">{{label}}</view>
-  </view>
-
-  <view wx:else>
+  </button>
+</view>
+<view wx:else>
+  <button catchtap="onTap" type="default" hover-class="none" class="{{state === 'on' ? 'on' : 'off'}}" size="mini">
     <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
     <view class="label-wrap" style="{{bindstyle}}">
-      <view class="label-wrap"  style="padding-left: 8px; text-align: left; width: 100%">{{label}}</view>
+      <view class="label-wrap" style="padding-left: 8px; text-align: left; width: 100%">{{label}}</view>
     </view>
-  </view>
-</button>
+  </button>
+</view>

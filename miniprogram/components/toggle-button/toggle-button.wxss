@@ -1,6 +1,11 @@
 @import "/style/fa-fontface.wxss";
 @import "/style/fa-fontname.wxss";
 
+.oneline-container {
+  max-width: 70px;
+  margin-left: -10px;
+}
+
 button.off {
   background-color: inherit;
   color:lightslategray;
