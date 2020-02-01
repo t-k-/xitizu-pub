@@ -38,13 +38,6 @@ exports.main = async (event, context) => {
     await next()
   });
 
-  app.router('role', async (ctx, next) => {
-    if (args.openid == openid)
-      ctx.body.ret = { msg: "success", detail: 'owner'}
-    else
-      ctx.body.ret = { msg: "success", detail: 'other' }
-  })
-
   app.router('post', async (ctx, next) => {
     await updateUserInfo(db, openid, args.loginName, args.loginAvatar)
 

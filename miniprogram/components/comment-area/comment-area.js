@@ -28,6 +28,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    myOpenid: null,
     selectedIdx: -1,
     selectedRole: null,
     comments: {},
@@ -105,50 +106,68 @@ Component({
   
     },
 
-    selectComment: function (ev) {
+    _get_openid: function () {
+      return new Promise((resolve, reject) => {
+        request.cloud('profile', 'wxid', {}, (res) => {
+          resolve(res.result.ret.detail.openid)
+        }, (err) => {
+          console.error("get openid failed.")
+          reject()
+        })
+      })
+    },
+
+    selectComment: async function (ev) {
       const idx = parseInt(ev.currentTarget.id)
       const postid = this.properties.postid
       const comment = this.data.comments[postid][idx]
 
-      /* select or unselect comment row */
       if (idx == this.data.selectedIdx) {
+        /* unselect this row */
         this.setData({
           selectedIdx: -1,
           selectedRole: null
         })
       } else {
+        /* select this row */
         this.setData({
           selectedIdx: idx,
           selectedRole: null
         })
 
-        request.cloud('comment', 'role', {
-          openid: comment.openid[0]._id
-        }, (res) => {
-
-          /* set option panel depending on user role */
-          const detail = res.result.ret.detail
-          if (detail == 'owner') {
-            this.setData({
-              selectedIdx: idx,
-              selectedRole: 'owner'
-            })
-          } else {
-            this.setData({
-              selectedIdx: idx,
-              selectedRole: 'other'
-            })
+        /* get my openid */
+        var myOpenid = this.data.myOpenid
+        if (myOpenid === null) {
+          /* my openid is not known previously, let's get it ... */
+          try {
+            myOpenid = await this._get_openid()
+            this.setData({myOpenid}) /* remember it */
+          } catch (err) {
+            return
           }
+        }
 
-          /* initialize voted state */
-          wx.nextTick(() => {
-            if (comment.num_votes == 0) { /* no one voted */
-              this.updateVoteBtn(true) /* not voted */
-            } else {
-              this.updateVoteBtn(comment._id)
-            }
+        /* now, set option panel depending on my role */
+        const comment_id = comment.openid[0]._id
+        if (myOpenid == comment_id) {
+          this.setData({
+            selectedIdx: idx,
+            selectedRole: 'owner'
           })
+        } else {
+          this.setData({
+            selectedIdx: idx,
+            selectedRole: 'other'
+          })
+        }
 
+        /* set voted state */
+        wx.nextTick(() => {
+          if (comment.num_votes == 0) { /* no one voted */
+            this.updateVoteBtn(true) /* not voted */
+          } else {
+            this.updateVoteBtn(comment._id)
+          }
         })
       }
     },
