@@ -48,15 +48,17 @@ Component({
    */
   methods: {
 
-    updateVoteBtn: function (commentID) {
-      var voteBtns = this.selectAllComponents(".voteBtn")
+    updateVoteBtn: function (commentID, state) {
+      var voteBtn = this.selectComponent('#voteBtn-' + commentID)
 
       var promise = new Promise((resolve, reject) => {
-        if (typeof commentID == 'boolean') {
-          resolve(commentID)
+        /*  if specified, set specified state */
+        if (state !== undefined) {
+          resolve(state)
           return
         }
         
+        /* otherwise, lookup vote state from cloud */
         request.cloud('comment', 'not-voted', {
           commentID: commentID
         }, (res) => {
@@ -65,14 +67,13 @@ Component({
         })
       })
         
-      for (var i = 0; i < voteBtns.length; i++) {
-        voteBtns[i].setThen(promise)
-      }
+      if (voteBtn)
+        voteBtn.setThen(promise)
     },
 
     onVoteBtnTap: async function (ev) {
       const loginName = this.properties.loginName
-      const commentID = ev.currentTarget.id
+      const commentID = ev.currentTarget.dataset.id
       const detail = ev.detail
       var vm = this
 
@@ -83,24 +84,23 @@ Component({
       } */
       
       if (detail.state == 'on') {
+        /* upvote */
         request.cloud('comment', 'upvote', {
           commentID: commentID
         }, (res) => {
           const msg = res.result.ret.msg
-          if (msg == 'error') {
-            console.log('already voted.')
-            vm.updateVoteBtn(false)
-            return
-          }
+          if (msg == 'error')
+            console.error('already voted.')
           vm.refreshComments()
-          vm.updateVoteBtn(false)
+          vm.updateVoteBtn(commentID, false)
         })
       } else {
+        /* downvote */
         request.cloud('comment', 'downvote', {
           commentID: commentID
         }, (res) => {
           vm.refreshComments()
-          vm.updateVoteBtn(true)
+          vm.updateVoteBtn(commentID, true)
         })
       }
   
@@ -161,10 +161,10 @@ Component({
           })
         }
 
-        /* set voted state */
+        /* set voted state after vote button shows up */
         wx.nextTick(() => {
           if (comment.num_votes == 0) { /* no one voted */
-            this.updateVoteBtn(true) /* not voted */
+            this.updateVoteBtn(comment._id, true) /* not voted */
           } else {
             this.updateVoteBtn(comment._id)
           }
