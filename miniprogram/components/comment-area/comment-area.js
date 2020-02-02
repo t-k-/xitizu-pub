@@ -137,7 +137,7 @@ Component({
       request.cloud('comment', 'delete', {
         commentID: commentID
       }, (res) => {
-        console.log(`comment ${commentID} deleted.`, res)
+        console.log(`comment ${commentID} deleted.`)
         vm.refreshComments()
 
         /* unselect this row */
