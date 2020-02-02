@@ -45,8 +45,24 @@ async function promptConfirm(what) {
   })
 }
 
+async function promptInfo(what) {
+  return new Promise((resolve, reject) => {
+    wx.showModal({
+      title: `提示`,
+      content: what,
+      showCancel: false,
+      success(res) {
+        if (res.confirm) {
+          resolve()
+        }
+      }
+    })
+  })
+}
+
 module.exports = {
   login: promptLogin,
   wordCnt: promptWordCnt,
-  confirm: promptConfirm
+  confirm: promptConfirm,
+  info: promptInfo
 }

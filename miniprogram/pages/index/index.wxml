@@ -11,7 +11,7 @@
 
     <div style="padding-top: 20px;">
         <text style="padding: 0 5px 0 5px; color: red" class="fa fa-heart"></text>
-        该提问者之前参与过 6 次打赏，共支付赏金 20 元。 
+        提问者曾参与过 6 次打赏，赏金共 20 元。 
     </div>
 
   </view>
@@ -77,11 +77,10 @@
   <button plain="true" bindtap="onTestNotification">测试关注通知</button>
 
   <view>用户头像</view>
-  <view>标记问题 -- fold the post</view>
-  <view>thumbup</view>
-  <view>👎</view>
+  <view>折叠、删除(可针对某一段落)</view>
+  <view>点赞、举报</view>
+  <view>贡献手抄版</view>
   <view class="separator"/>
-  <view>comments</view>
   <view>分享</view>
   <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
 

@@ -366,6 +366,15 @@ Component({
           commentID: editFor.commentID,
           content: content
         }, async (res) => {
+          /* check if this edit is too late */
+          const ret = res.result.ret
+          if (ret.msg == 'toolate') {
+            await modalPrompt.info(`过去 3 分钟以上的评论不能再修改。`)
+            /* reset only submit button */
+            vm.selectComponent("#comment-input").resetBtn(editFor.reason)
+            return
+          }
+
           try {
             await vm.refreshComments(-1)
             /* reset Editor only when comment sent successfully. */

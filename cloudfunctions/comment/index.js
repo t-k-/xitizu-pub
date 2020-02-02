@@ -214,6 +214,17 @@ exports.main = async (event, context) => {
     const commentID = args.commentID
     const content = args.content
 
+    const record = await db.collection('comment').doc(commentID).get()
+    
+    const now = Date.now()
+    const create_time = record.data.timestamp
+    const diff_minutes = Math.abs(now - create_time) / (1000 * 60)
+
+    if (diff_minutes > 3.0 /* 3 minutes */) {
+      ctx.body.ret = { msg: "toolate", detail: diff_minutes }
+      return
+    }
+
     await db.collection('comment').where({
       _id: commentID
     }).update({
