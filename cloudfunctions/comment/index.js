@@ -190,5 +190,24 @@ exports.main = async (event, context) => {
     })
   })
 
+  app.router('delete', async (ctx, next) => {
+    const commentID = args.commentID
+    deleComment = db.collection('comment').where({
+      _id: commentID
+    })
+    .remove()
+
+    deleVote = db.collection('vote').where({
+      toid: commentID
+    })
+    .remove()
+
+    Promise.all([deleComment, deleVote]).then(res => {
+      ctx.body.ret = { msg: "success", detail: res };
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e };
+    })
+  })
+
   return app.serve()
 }

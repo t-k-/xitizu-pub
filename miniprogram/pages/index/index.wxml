@@ -84,4 +84,8 @@
   <view>comments</view>
   <view>分享</view>
   <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
+
+  <comment-area class="comment-area" postid="post12345"
+   loginName="{{loginName}}" loginAvatar="{{loginAvatar}}">
+  </comment-area>
 </view>

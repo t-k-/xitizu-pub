@@ -127,6 +127,29 @@ Component({
       this.resetEditorInReplyMode(commentID, name)
     },
 
+    onDeleBtnTap: async function (ev) {
+      const commentID = ev.currentTarget.dataset.commentid
+      var vm = this
+
+      let confirm = await modalPrompt.confirm('确定要删除这条评论吗？')
+      if (!confirm) return
+
+      request.cloud('comment', 'delete', {
+        commentID: commentID
+      }, (res) => {
+        console.log(`comment ${commentID} deleted.`, res)
+        vm.refreshComments()
+
+        /* unselect this row */
+        this.setData({
+          selectedIdx: -1,
+          selectedRole: null
+        })
+      }, (err) => {
+        console.error(`comment ${commentID} deletion.`)
+      })
+    },
+
     _get_openid: function () {
       return new Promise((resolve, reject) => {
         request.cloud('profile', 'wxid', {}, (res) => {

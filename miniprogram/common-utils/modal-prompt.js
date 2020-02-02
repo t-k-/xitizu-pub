@@ -28,7 +28,25 @@ async function promptWordCnt(cnt) {
   })
 }
 
+async function promptConfirm(what) {
+  return new Promise((resolve, reject) => {
+    wx.showModal({
+      title: `请确定`,
+      content: what,
+      showCancel: true,
+      success(res) {
+        if (res.confirm) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      }
+    })
+  })
+}
+
 module.exports = {
   login: promptLogin,
-  wordCnt: promptWordCnt
+  wordCnt: promptWordCnt,
+  confirm: promptConfirm
 }
