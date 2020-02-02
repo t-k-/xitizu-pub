@@ -49,6 +49,20 @@ Component({
    */
   methods: {
 
+    scrollToEditor: function () {
+      const query = wx.createSelectorQuery().in(this)
+      query.select('#comment-input').boundingClientRect()
+      query.selectViewport().scrollOffset()
+      query.exec(function (res) {
+        let selectTop = res[0].top;
+        let scrollTop = res[1].scrollTop;
+        wx.pageScrollTo({
+          scrollTop: selectTop + scrollTop,
+          duration: 300
+        })
+      })
+    },
+
     updateVoteBtn: function (commentID, state) {
       var voteBtn = this.selectComponent('#voteBtn-' + commentID)
 
@@ -225,8 +239,12 @@ Component({
       this.refreshComments(this.data.curPage + 1)
     },
 
-    onEditorExpanded: function () {
-      this.refreshComments(-1)
+    onEditorExpanded: async function () {
+      await this.refreshComments(-1)
+
+      wx.nextTick(() => {
+        this.scrollToEditor()
+      })
     },
 
     resetEditor: function () {
