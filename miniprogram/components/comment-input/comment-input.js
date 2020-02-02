@@ -37,15 +37,16 @@ Component({
       })
       this.triggerEvent('expanded')
     },
-    resetBtn: function () {
+    resetBtn: function (initLabel) {
       var sendBtn = this.selectComponent("#send-button")
       if (sendBtn)
-        sendBtn.restore()
+        sendBtn.restore(initLabel)
     },
-    reset: function () {
+    reset: function (initContent) {
+      const content = initContent || ''
       this.setData({
         empty: true,
-        content: ''
+        content: content
       })
       this.resetBtn()
     },

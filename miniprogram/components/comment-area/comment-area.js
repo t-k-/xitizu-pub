@@ -106,6 +106,12 @@ Component({
   
     },
 
+    onReplyBtnTap: function (ev) {
+      const name = ev.currentTarget.dataset.name
+      const commentID = ev.currentTarget.dataset.commentid
+      this.resetEditorInReplyMode(commentID, name)
+    },
+
     _get_openid: function () {
       return new Promise((resolve, reject) => {
         request.cloud('profile', 'wxid', {}, (res) => {
@@ -225,6 +231,13 @@ Component({
     resetEditor: function () {
       var editor = this.selectComponent("#comment-input")
       editor.reset()
+    },
+
+    resetEditorInReplyMode: function (commentID, name) {
+      var editor = this.selectComponent("#comment-input")
+      editor.reset(`回复 @${name}：`)
+      editor.onCommentFocus()
+      editor.resetBtn('回复')
     },
 
     onCommentSubmit: async function (ev) {

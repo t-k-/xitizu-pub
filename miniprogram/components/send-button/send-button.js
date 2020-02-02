@@ -27,15 +27,16 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    restore: function () {
+    restore: function (initLabel) {
       /* clear (if any) wait timer */
       if (this.waitInterval)
         clearInterval(this.waitInterval)
     
       /* restore original label */
       var vm = this
+      const label = initLabel || vm.properties.orginLabel
       vm.setData({
-        label: vm.properties.orginLabel,
+        label: label,
         waiting: false
       })
 
