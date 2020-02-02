@@ -4,7 +4,7 @@
 </view>
 
 <view>
-  <view wx:for="{{comments[postid]}}" wx:key="timestamp" wx:for-index="idx" class="comment">
+  <view wx:for="{{comments[postid]}}" wx:key="_id" wx:for-index="idx" class="comment">
     <view class="flex-container flex-justify-between flex-align-center" id="{{idx}}" bindtap="selectComment">
 
       <view class="flex-g1">
