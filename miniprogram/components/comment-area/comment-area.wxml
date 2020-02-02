@@ -47,8 +47,8 @@
 
   </view>
 
-  <view wx:if="{{left > 0}}" class="expand-container">
-  <text bindtap="onExpand">展开之后 {{left > 10 ? 10 : left}} 条评论 ...</text>
+  <view wx:if="{{left > 0}}" class="loadmore-container">
+    <text bindtap="onLoadMore">展开之后 {{left > 10 ? 10 : left}} 条评论 ...</text>
   </view>
 </view>
 

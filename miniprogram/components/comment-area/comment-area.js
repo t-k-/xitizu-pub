@@ -33,7 +33,8 @@ Component({
     selectedRole: null,
     comments: {},
     curPage: 0,
-    left: 0
+    left: 0,
+    mention: null
   },
 
   attached: function () {
@@ -220,7 +221,7 @@ Component({
       })
     },
 
-    onExpand: function () {
+    onLoadMore: function () {
       this.refreshComments(this.data.curPage + 1)
     },
 
@@ -231,13 +232,21 @@ Component({
     resetEditor: function () {
       var editor = this.selectComponent("#comment-input")
       editor.reset()
+
+      this.setData({
+        mention: null
+      })
     },
 
     resetEditorInReplyMode: function (commentID, name) {
       var editor = this.selectComponent("#comment-input")
-      editor.reset(`回复 @${name}：`)
+      editor.reset(`回复 ${name}：`)
       editor.onCommentFocus()
       editor.resetBtn('回复')
+
+      this.setData({
+        mention: commentID
+      })
     },
 
     onCommentSubmit: async function (ev) {
@@ -259,6 +268,23 @@ Component({
         return
       }
 
+      if (this.data.mention !== null) {
+        await new Promise((resolve, reject) => {
+          request.cloud('comment', 'mention', {
+            commentID: this.data.mention,
+            loginName: loginName
+          }, (res) => {
+            console.log('mention posted.')
+            resolve()
+          }, (err) => {
+            console.error(err)
+            reject()
+          })
+        }).catch(err => {
+          return
+        })
+      }
+
       request.cloud('comment', 'post', {
         postid: postid,
         content: content,
@@ -276,6 +302,7 @@ Component({
         }
 
       })
+
     }
 
   }

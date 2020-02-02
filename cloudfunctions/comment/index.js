@@ -149,7 +149,8 @@ exports.main = async (event, context) => {
     await db.collection('vote').add({
       data: {
         toid: commentID,
-        by: openid
+        by: openid,
+        timestamp: Date.now()
       }
     }).then(res => {
       ctx.body.ret = { msg: "success", detail: res }
@@ -169,6 +170,23 @@ exports.main = async (event, context) => {
       ctx.body.ret = { msg: "success", detail: res };
     }).catch(e => {
       ctx.body.ret = { msg: 'error', detail: e };
+    })
+  })
+
+  app.router('mention', async (ctx, next) => {
+    const commentID = args.commentID
+    const who = args.loginName
+
+    await db.collection('mention').add({
+      data: {
+        commentid: commentID,
+        by: who,
+        timestamp: Date.now()
+      }
+    }).then(res => {
+      ctx.body.ret = { msg: "success", detail: res }
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e }
     })
   })
 
