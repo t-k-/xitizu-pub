@@ -2,7 +2,7 @@
 
 .editor {
   padding-left: 10px;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 .editor textarea {
@@ -13,4 +13,8 @@
 
 .editor .expanded {
   min-height: 60px;
+}
+
+.send-btn-container {
+  padding: 10px;
 }
