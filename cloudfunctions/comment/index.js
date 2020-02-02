@@ -193,17 +193,34 @@ exports.main = async (event, context) => {
   app.router('delete', async (ctx, next) => {
     const commentID = args.commentID
 
-    deleComment = db.collection('comment').where({
+    let deleComment = db.collection('comment').where({
       _id: commentID
     })
     .remove()
 
-    deleVote = db.collection('vote').where({
+    let deleVote = db.collection('vote').where({
       toid: commentID
     })
     .remove()
 
-    Promise.all([deleComment, deleVote]).then(res => {
+    await Promise.all([deleComment, deleVote]).then(res => {
+      ctx.body.ret = { msg: "success", detail: res }
+    }).catch(e => {
+      ctx.body.ret = { msg: 'error', detail: e }
+    })
+  })
+
+  app.router('edit', async (ctx, next) => {
+    const commentID = args.commentID
+    const content = args.content
+
+    await db.collection('comment').where({
+      _id: commentID
+    }).update({
+      data: {
+        content: content
+      }
+    }).then(res => {
       ctx.body.ret = { msg: "success", detail: res }
     }).catch(e => {
       ctx.body.ret = { msg: 'error', detail: e }

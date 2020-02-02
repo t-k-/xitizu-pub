@@ -34,7 +34,7 @@ Component({
     comments: {},
     curPage: 0,
     left: 0,
-    mention: null
+    editFor: null
   },
 
   attached: function () {
@@ -122,9 +122,29 @@ Component({
     },
 
     onReplyBtnTap: function (ev) {
-      const name = ev.currentTarget.dataset.name
       const commentID = ev.currentTarget.dataset.commentid
-      this.resetEditorInReplyMode(commentID, name)
+      const name = ev.currentTarget.dataset.name
+      
+      this.resetEditorwith(commentID, `回复 ${name}：`, '回复')
+
+      /* unselect this row */
+      this.setData({
+        selectedIdx: -1,
+        selectedRole: null
+      })
+    },
+
+    onEditBtnTap: function (ev) {
+      const commentID = ev.currentTarget.dataset.commentid
+      const content = ev.currentTarget.dataset.content
+
+      this.resetEditorwith(commentID, content, '修改')
+
+      /* unselect this row */
+      this.setData({
+        selectedIdx: -1,
+        selectedRole: null
+      })
     },
 
     onDeleBtnTap: async function (ev) {
@@ -275,18 +295,28 @@ Component({
       editor.reset()
 
       this.setData({
-        mention: null
+        editFor: null
       })
     },
 
-    resetEditorInReplyMode: function (commentID, name) {
+    onEditorUnexpanded: function () {
+      /* when user cancels editing */
+      this.setData({
+        editFor: null
+      })
+    },
+
+    resetEditorwith: function (commentID, content, btnLabel) {
       var editor = this.selectComponent("#comment-input")
-      editor.reset(`回复 ${name}：`)
+      editor.reset(content)
       editor.onCommentFocus()
-      editor.resetBtn('回复')
+      editor.resetBtn(btnLabel)
 
       this.setData({
-        mention: commentID
+        editFor: {
+          reason: btnLabel,
+          commentID: commentID
+        }
       })
     },
 
@@ -296,6 +326,7 @@ Component({
       const loginName = this.properties.loginName
       const loginAvatar = this.properties.loginAvatar
       var vm = this
+      const editFor = this.data.editFor
 
       if (loginName.trim().length == 0) {
         await modalPrompt.login('发表评论')
@@ -309,10 +340,11 @@ Component({
         return
       }
 
-      if (this.data.mention !== null) {
+      /* create new mention */
+      if (editFor && editFor.reason == '回复') {
         await new Promise((resolve, reject) => {
           request.cloud('comment', 'mention', {
-            commentID: this.data.mention,
+            commentID: editFor.commentID,
             loginName: loginName
           }, (res) => {
             console.log('mention posted.')
@@ -324,16 +356,35 @@ Component({
         }).catch(err => {
           return
         })
+
+        /* after blocking, post new comment ... */
       }
 
+      /* edit post and return */
+      if (editFor && editFor.reason == '修改') {
+        request.cloud('comment', 'edit', {
+          commentID: editFor.commentID,
+          content: content
+        }, async (res) => {
+          try {
+            await vm.refreshComments(-1)
+            /* reset Editor only when comment sent successfully. */
+            vm.resetEditor()
+          } catch (err) {
+            console.error('[caught] ', err)
+          }
+        })
+
+        return /* no new comment posted */
+      }
+
+      /* post new comment */
       request.cloud('comment', 'post', {
         postid: postid,
         content: content,
         loginName: loginName,
         loginAvatar: loginAvatar
-
       }, async (res) => {
-
         try {
           await vm.refreshComments(-1)
           /* reset Editor only when comment sent successfully. */
@@ -341,7 +392,6 @@ Component({
         } catch (err) {
           console.error('[caught] ', err)
         }
-
       })
 
     }

@@ -5,9 +5,16 @@
 
 .comment {
   border-top: 2px solid white;
-  background-color: floralwhite;
   padding: 2px 6px 3px 5px;
   word-break: break-all;
+}
+
+.normal {
+  background-color: floralwhite;
+}
+
+.highlight {
+  background-color: cornsilk;
 }
 
 .flag {

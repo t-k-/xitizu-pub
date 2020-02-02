@@ -4,7 +4,8 @@
 </view>
 
 <view>
-  <view wx:for="{{comments[postid]}}" wx:key="_id" wx:for-index="idx" class="comment">
+  <view wx:for="{{comments[postid]}}" wx:key="_id" wx:for-index="idx"
+        class="{{(editFor && editFor.commentID == item._id) ? 'comment highlight' : 'comment normal'}}">
     <view class="flex-container flex-justify-between flex-align-center" id="{{idx}}" bindtap="selectComment">
 
       <view class="flex-g1">
@@ -46,7 +47,11 @@
           <text class="fa fa-trash-o"></text> 删除
         </button>
       </view>
-      <view><button class="comment-btn" size="mini"><text class="fa fa-edit"></text> 修改</button></view>
+      <view>
+        <button class="comment-btn" size="mini" bindtap="onEditBtnTap" data-commentid="{{item._id}}" data-content="{{item.content}}">
+          <text class="fa fa-edit"></text> 修改
+        </button>
+      </view>
     </view>
 
   </view>
@@ -57,7 +62,7 @@
 </view>
 
 <view class="comment-editor">
-  <comment-input id="comment-input" bind:submit="onCommentSubmit" bind:expanded="onEditorExpanded"
+  <comment-input id="comment-input" bind:submit="onCommentSubmit" bind:expanded="onEditorExpanded" bind:unexpanded="onEditorUnexpanded"
   placeholder="添加评论 ..." btnLabel="评论" postid="{{postid}}">
   </comment-input>
 </view>

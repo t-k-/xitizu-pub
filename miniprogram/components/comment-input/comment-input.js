@@ -57,6 +57,8 @@ Component({
           empty: true,
           content: ''
         })
+        this.triggerEvent('unexpanded')
+        
       } else {
         this.setData({
           empty: false
