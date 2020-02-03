@@ -24,7 +24,6 @@
     <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
     <view  class="tag">大学数学</view>
     <view  class="tag">数学分析</view>
-    <view  class="tag">2019考研真题</view>
     <view  class="tag">极限求值</view>
     <view  class="tag">+ 添加标签</view>
   </view>
