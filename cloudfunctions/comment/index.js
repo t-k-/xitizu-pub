@@ -40,20 +40,40 @@ exports.main = async (event, context) => {
 
   app.router('post', async (ctx, next) => {
     await updateUserInfo(db, openid, args.loginName, args.loginAvatar)
+    
+    try {
+      let res = await db.collection('comment').add({
+        data: {
+          postid: args.postid,
+          content: args.content,
+          timestamp: Date.now(),
+          openid: openid
+        }
+      })
 
-    await db.collection('comment').add({
-      data: {
-        postid: args.postid,
-        content: args.content,
-        timestamp: Date.now(),
-        openid: openid
+      if (args.inReplyTo) {
+        const commentID = res._id /* comment just created */
+        
+        await db.collection('mention').add({
+          data: {
+            mention: args.inReplyTo,
+            _id: commentID,
+            byname: args.loginName,
+            timestamp: Date.now()
+          }
+        }).then(res => {
+          ctx.body.ret = { msg: "success", detail: res }
+        }).catch(e => {
+          ctx.body.ret = { msg: 'error', detail: e }
+        })
+
+      } else {
+        ctx.body.ret = { msg: "success", detail: res }
       }
-    }).then(res => {
-      ctx.body.ret = { msg: "success", detail: res }
-    }).catch(e => {
-      ctx.body.ret = { msg: 'error', detail: e }
-    })
 
+    } catch (err) {
+      ctx.body.ret = { msg: 'error', detail: err }
+    }
   });
 
   app.router('pull', async (ctx, next) => {
@@ -102,11 +122,23 @@ exports.main = async (event, context) => {
       foreignField: 'toid',
       as: 'votes'
     })
+    .lookup({
+      from: 'mention',
+      localField: '_id',
+      foreignField: '_id',
+      as: 'mentions'
+    })
     .addFields({
-      num_votes: $.size('$votes')
+      num_votes: $.size('$votes'),
+      mention: $.arrayElemAt(['$mentions', 0])
+    })
+    .addFields({
+      mention_comment: '$mention.mention'
     })
     .project({
-      votes: false
+      votes: false,
+      mention: false,
+      mentions: false
     })
     .sort({
       'timestamp': 1
@@ -170,23 +202,6 @@ exports.main = async (event, context) => {
       ctx.body.ret = { msg: "success", detail: res };
     }).catch(e => {
       ctx.body.ret = { msg: 'error', detail: e };
-    })
-  })
-
-  app.router('mention', async (ctx, next) => {
-    const commentID = args.commentID
-    const who = args.loginName
-
-    await db.collection('mention').add({
-      data: {
-        commentid: commentID,
-        by: who,
-        timestamp: Date.now()
-      }
-    }).then(res => {
-      ctx.body.ret = { msg: "success", detail: res }
-    }).catch(e => {
-      ctx.body.ret = { msg: 'error', detail: e }
     })
   })
 

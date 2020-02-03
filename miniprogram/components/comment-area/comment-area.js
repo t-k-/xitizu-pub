@@ -34,7 +34,8 @@ Component({
     comments: {},
     curPage: 0,
     left: 0,
-    editFor: null
+    editFor: null,
+    mentioning: null
   },
 
   attached: function () {
@@ -48,6 +49,31 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
+    selectComment: function (idx, role) {
+      this.setData({
+        selectedIdx: idx,
+        selectedRole: role || null
+      })
+
+      /* mention highlight (if any) */
+      if (idx >= 0) {
+        const postid = this.properties.postid
+        const comment = this.data.comments[postid][idx]
+        const mention = comment.mention_comment
+        if (mention) {
+          this.setData({
+            mentioning: mention
+          })
+          return
+        }
+      }
+
+      /* cancel highlight when unselected or selected another */
+      this.setData({
+        mentioning: null
+      })
+    },
 
     scrollToEditor: function () {
       const query = wx.createSelectorQuery().in(this)
@@ -126,12 +152,7 @@ Component({
       const name = ev.currentTarget.dataset.name
       
       this.resetEditorwith(commentID, `回复 ${name}：`, '回复')
-
-      /* unselect this row */
-      this.setData({
-        selectedIdx: -1,
-        selectedRole: null
-      })
+      this.selectComment(-1)
     },
 
     onEditBtnTap: function (ev) {
@@ -139,12 +160,7 @@ Component({
       const content = ev.currentTarget.dataset.content
 
       this.resetEditorwith(commentID, content, '修改')
-
-      /* unselect this row */
-      this.setData({
-        selectedIdx: -1,
-        selectedRole: null
-      })
+      this.selectComment(-1)
     },
 
     onDeleBtnTap: async function (ev) {
@@ -159,12 +175,7 @@ Component({
       }, (res) => {
         console.log(`comment ${commentID} deleted.`)
         vm.refreshComments()
-
-        /* unselect this row */
-        this.setData({
-          selectedIdx: -1,
-          selectedRole: null
-        })
+        this.selectComment(-1)
       }, (err) => {
         console.error(`comment ${commentID} deletion.`)
       })
@@ -181,23 +192,15 @@ Component({
       })
     },
 
-    selectComment: async function (ev) {
+    onCommentTap: async function (ev) {
       const idx = parseInt(ev.currentTarget.id)
       const postid = this.properties.postid
       const comment = this.data.comments[postid][idx]
 
       if (idx == this.data.selectedIdx) {
-        /* unselect this row */
-        this.setData({
-          selectedIdx: -1,
-          selectedRole: null
-        })
+        this.selectComment(-1)
       } else {
-        /* select this row */
-        this.setData({
-          selectedIdx: idx,
-          selectedRole: null
-        })
+        this.selectComment(idx)
 
         /* get my openid */
         var myOpenid = this.data.myOpenid
@@ -214,15 +217,9 @@ Component({
         /* now, set option panel depending on my role */
         const comment_id = comment.openid[0]._id
         if (myOpenid == comment_id) {
-          this.setData({
-            selectedIdx: idx,
-            selectedRole: 'owner'
-          })
+          this.selectComment(idx, 'owner')
         } else {
-          this.setData({
-            selectedIdx: idx,
-            selectedRole: 'other'
-          })
+          this.selectComment(idx, 'other')
         }
 
         /* set voted state after vote button shows up */
@@ -340,28 +337,8 @@ Component({
         return
       }
 
-      /* create new mention */
-      if (editFor && editFor.reason == '回复') {
-        await new Promise((resolve, reject) => {
-          request.cloud('comment', 'mention', {
-            commentID: editFor.commentID,
-            loginName: loginName
-          }, (res) => {
-            console.log('mention posted.')
-            resolve()
-          }, (err) => {
-            console.error(err)
-            reject()
-          })
-        }).catch(err => {
-          return
-        })
-
-        /* after blocking, post new comment ... */
-      }
-
-      /* edit post and return */
       if (editFor && editFor.reason == '修改') {
+        /* edit an old post */
         request.cloud('comment', 'edit', {
           commentID: editFor.commentID,
           content: content
@@ -383,27 +360,25 @@ Component({
             console.error('[caught] ', err)
           }
         })
-
-        return /* no new comment posted */
+      } else {
+        /* post new comment */
+        request.cloud('comment', 'post', {
+          postid: postid,
+          content: content,
+          loginName: loginName,
+          loginAvatar: loginAvatar,
+          inReplyTo: (editFor && editFor.reason == '回复') ? editFor.commentID : undefined
+        }, async (res) => {
+          try {
+            await vm.refreshComments(-1)
+            /* reset Editor only when comment sent successfully. */
+            vm.resetEditor()
+          } catch (err) {
+            console.error('[caught] ', err)
+          }
+        })
       }
 
-      /* post new comment */
-      request.cloud('comment', 'post', {
-        postid: postid,
-        content: content,
-        loginName: loginName,
-        loginAvatar: loginAvatar
-      }, async (res) => {
-        try {
-          await vm.refreshComments(-1)
-          /* reset Editor only when comment sent successfully. */
-          vm.resetEditor()
-        } catch (err) {
-          console.error('[caught] ', err)
-        }
-      })
-
     }
-
   }
 })
