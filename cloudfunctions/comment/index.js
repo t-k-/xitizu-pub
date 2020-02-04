@@ -207,6 +207,16 @@ exports.main = async (event, context) => {
 
   app.router('delete', async (ctx, next) => {
     const commentID = args.commentID
+    const record = await db.collection('comment').doc(commentID).get()
+
+    const now = Date.now()
+    const create_time = record.data.timestamp
+    const diff_minutes = Math.abs(now - create_time) / (1000 * 60)
+
+    if (diff_minutes > 3.0 /* 3 minutes */) {
+      ctx.body.ret = { msg: "toolate", detail: diff_minutes }
+      return
+    }
 
     let deleComment = db.collection('comment').where({
       _id: commentID

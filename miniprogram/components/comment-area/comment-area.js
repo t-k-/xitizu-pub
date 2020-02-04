@@ -172,9 +172,15 @@ Component({
 
       request.cloud('comment', 'delete', {
         commentID: commentID
-      }, (res) => {
-        console.log(`comment ${commentID} deleted.`)
-        vm.refreshComments()
+      }, async (res) => {
+        /* check if this edit is too late */
+        const ret = res.result.ret
+        if (ret.msg == 'toolate') {
+          await modalPrompt.info(`过去 3 分钟以上的评论不能删除。`)
+        } else {
+          console.log(`comment ${commentID} deleted.`)
+          vm.refreshComments()
+        }
         this.selectComment(-1)
       }, (err) => {
         console.error(`comment ${commentID} deletion.`)
