@@ -95,10 +95,10 @@
 </view>
 
 <view class="flex-container flex-justify-center flex-direction-column">
-  <view class="separator" />
+  <view class="blankarea" />
   <view>注意，下面有解答。</view>
   <view>多多思考有助提高。</view>
-  <view class="separator" />
+  <view class="blankarea" />
   
 </view>
 
