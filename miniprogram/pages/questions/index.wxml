@@ -53,9 +53,11 @@
   <view>
     <text class="fa fa-question"></text> 图片不清晰/看不懂/求详解 [作者回应]
   </view>
-
   <view>
-    <text class="fa fa-cut"></text> 建议分割 [管理员回应，解决前加锁]
+    <text class="fa fa-tag"></text> 建议标签 [管理员回应，加标签]
+  </view>
+  <view>
+    <text class="fa fa-cut"></text> 建议切分 [管理员回应，解决前加锁]
   </view>  
   <view>
     <text>题目描述包含至少两个不相关问题、需要分割，回答内容包含不同的解答思路、需要分割</text>
