@@ -60,6 +60,9 @@
     <text class="fa fa-cut"></text> 建议切分 [管理员回应，解决前加锁]
   </view>  
   <view>
+    <text class="fa fa-eraser"></text> 改善答案、贡献手抄版 [新答案]
+  </view>
+  <view>
     <text>题目描述包含至少两个不相关问题、需要分割，回答内容包含不同的解答思路、需要分割</text>
   </view>
   
