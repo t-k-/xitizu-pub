@@ -38,7 +38,7 @@
           <text class="fa fa-reply"></text> 回复
         </button>
       </view>
-      <view><button class="comment-btn" size="mini"><text class="fa fa-flag"></text> 举报</button></view>
+      <view><button class="comment-btn" size="mini"><text class="fa fa-flag-o"></text> 小报告</button></view>
     </view>
 
     <view class="flex-container flex-justify-space flex-wrap" wx:if="{{idx == selectedIdx && selectedRole == 'owner'}}">

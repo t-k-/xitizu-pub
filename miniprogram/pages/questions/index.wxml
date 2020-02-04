@@ -2,37 +2,67 @@
 
 <view class="question">
 
-  <view class="flex-container flex-justify-space flex-wrap" style="margin-bottom: 15px;">
-
-    <div style= class="flex-g1" style="min-width: 150px; padding-top: 20px;">
-      <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
-      题目编号 {{questionID}}
-    </div>
-
-    <div style="padding-top: 20px;">
-        <text style="padding: 0 5px 0 5px; color: red" class="fa fa-heart"></text>
-        提问者曾参与过 6 次打赏，赏金共 20 元。 
-    </div>
-
+  <view>
+    <text style="padding: 0 10px 0 10px" class="fa fa-paperclip"></text>
+    题目编号 {{questionID}}
   </view>
+
+  <view class="separator" />
+
+  <view id="taglist">
+    <text class="fa fa-tags"></text>
+    <view  class="tag">· 大学数学</view>
+    <view  class="tag">· 数学分析</view>
+    <view  class="tag">· 极限求值</view>
+    <view  class="tag">+ 添加标签</view>
+  </view>
+
+  <view class="separator" />
 
   <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
 
-  <view class="footnote">编辑于 2019 年 12 月 27 日</view>
+  <view class="footnote">
+    <view>编辑于 2019 年 12 月 27 日</view>
+  </view>
 
-  <view id="taglist">
-    <text style="padding: 0 10px 0 10px" class="fa fa-tags"></text>
-    <view  class="tag">大学数学</view>
-    <view  class="tag">数学分析</view>
-    <view  class="tag">极限求值</view>
-    <view  class="tag">+ 添加标签</view>
+  <view class="separator" />
+
+  <view>
+    <text class="fa fa-edit"></text> 编辑
+    <text class="fa fa-trash-o"></text> 删除 | 
+    <text class="fa fa-flag-o"></text> 小报告
+    <text class="fa fa-thumbs-o-up"></text> 赞/采纳 | 
+    <text class="fa fa-share"></text> 转发
   </view>
 
   <view class="separator" />
 
   <view>打赏者列表</view>
   <view>贡献者列表</view>
+  
+  <view class="separator" />
 
+  <view>
+      <text style="padding: 0 10px 0 10px; color: red" class="fa fa-heart"></text>
+      提问者曾参与过 6 次打赏，赏金共 20 元。 
+  </view>
+
+  <view>
+    <text class="fa fa-copy"></text> 指出相似题（包括站外）[管理员回应，加锁]
+  </view>
+  <view>
+    <text class="fa fa-question"></text> 图片不清晰/看不懂/求详解 [作者回应]
+  </view>
+
+  <view>
+    <text class="fa fa-cut"></text> 建议分割 [管理员回应，解决前加锁]
+  </view>  
+  <view>
+    <text>题目描述包含至少两个不相关问题、需要分割，回答内容包含不同的解答思路、需要分割</text>
+  </view>
+  
+  <view>提议采纳时候才可以提供入口去 上锁、编辑、删除。</view>
+    
   <view class="separator" />
 
   <comment-area class="comment-area" postid="{{questionID}}"

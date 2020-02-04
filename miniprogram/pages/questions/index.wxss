@@ -4,19 +4,19 @@
 @import "/style/fa-fontname.wxss";
 
 #taglist {
-  padding-left: 5px;
+  padding-left: 10px;
 }
 
 .tag {
+  margin-left: 5px;
   display: inline-block;
   background-color: cornflowerblue;
   border: none;
   font-size: x-small;
   font-weight: 600;
   margin-bottom: 5px;
-  margin-right: 5px;
   border-radius: 6px;
-  padding: 7px 7px 7px 7px;
+  padding: 5px 5px 5px 5px;
   color: whitesmoke;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .separator {
-  padding-bottom: 70px;
+  padding-bottom: 10px;
 }
 
 .answer {

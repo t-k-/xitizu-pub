@@ -1,14 +1,49 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/questions/index",
+    "pages/stars/stars",
+    "pages/profile/profile",
+    "pages/patrol/patrol"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "习题组",
+    "navigationBarTitleText": "数学习题组",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#242424",
+    "borderStyle": "black",
+    "selectedColor": "#000000",
+    "backgroundColor": "#F6F6F6",
+    "list": [
+      {
+        "pagePath": "pages/questions/index",
+        "text": "习题",
+        "iconPath": "/resources/tabbar/home.png",
+        "selectedIconPath": "/resources/tabbar/home_on.png"
+      },
+      {
+        "pagePath": "pages/stars/stars",
+        "text": "收藏",
+        "iconPath": "/resources/tabbar/star.png",
+        "selectedIconPath": "/resources/tabbar/star_on.png"
+      },
+      {
+        "pagePath": "pages/patrol/patrol",
+        "text": "执勤",
+        "iconPath": "/resources/tabbar/legal.png",
+        "selectedIconPath": "/resources/tabbar/legal_on.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "/resources/tabbar/user.png",
+        "selectedIconPath": "/resources/tabbar/user_on.png"
+      }
+    ]
+  },
   "style": "v2"
 }
