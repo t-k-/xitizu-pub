@@ -32,7 +32,7 @@
     <text class="fa fa-trash-o"></text> 删除 | 
     <text class="fa fa-flag-o"></text> 小报告
     <text class="fa fa-thumbs-o-up"></text> 赞/采纳 | 
-    <text class="fa fa-share"></text> 转发
+    <text class="fa fa-star"></text> 收藏
   </view>
 
   <view class="separator" />
@@ -76,8 +76,8 @@
     iconOn="fa-eye" iconOff="fa-eye-slash"></watch-button>
 
     <watch-button id="starButton" 
-    labelOn="收藏" labelOff="收藏"
-    iconOn="fa-star" iconOff="fa-star-o"></watch-button>
+    labelOn="转发" labelOff="转发"
+    iconOn="fa-share" iconOff="fa-share"></watch-button>
 
     <watch-button id="awardButton"
     labelOn="打赏" labelOff="打赏"
