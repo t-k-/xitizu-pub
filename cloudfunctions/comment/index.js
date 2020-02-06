@@ -23,13 +23,13 @@ async function updateUserInfo(db, openid, name, avatar) {
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
-  const openid = wxContext.OPENID
-  const appid = wxContext.APPID
-  const unionid = wxContext.UNIONID
-
   var app = new TcbRouter({ event })
   const args = event.args;
+
+  const wxContext = cloud.getWXContext()
+  const appid = wxContext.APPID
+  const unionid = wxContext.UNIONID
+  const openid = args.openid || wxContext.OPENID
 
   const db = cloud.database(cloud_env)
 
@@ -207,8 +207,8 @@ exports.main = async (event, context) => {
 
   app.router('delete', async (ctx, next) => {
     const commentID = args.commentID
+    
     const record = await db.collection('comment').doc(commentID).get()
-
     const now = Date.now()
     const create_time = record.data.timestamp
     const diff_minutes = Math.abs(now - create_time) / (1000 * 60)

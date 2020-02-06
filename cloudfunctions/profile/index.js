@@ -32,5 +32,15 @@ exports.main = async (event, context) => {
     }
   })
 
+  app.router('test', async (ctx, next) => {
+    ctx.body.ret = {
+      msg: "success",
+      detail: {
+        'hello': 'world',
+        'echo': args
+      }
+    }
+  })
+
   return app.serve()
 }
