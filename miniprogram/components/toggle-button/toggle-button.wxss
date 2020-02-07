@@ -1,17 +1,18 @@
 @import "/style/fa-fontface.wxss";
 @import "/style/fa-fontname.wxss";
+@import "/style/theme.wxss";
 
 .oneline-container {
   max-width: 70px;
   margin-left: -10px;
 }
 
-button.off {
+button.off, view.off {
   background-color: inherit;
   color:lightslategray;
 }
 
-button.on {
+button.on, view.on {
   background-color: inherit;
   color: cornflowerblue;
 }

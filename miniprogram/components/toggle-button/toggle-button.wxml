@@ -6,11 +6,9 @@
     <view class="label-wrap" style="{{bindstyle}}">{{label}}</view>
   </button>
 </view>
-<view wx:else>
-  <button catchtap="onTap" type="default" hover-class="none" class="{{state === 'on' ? 'on' : 'off'}}" size="mini">
-    <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
-    <view class="label-wrap" style="{{bindstyle}}">
-      <view class="label-wrap" style="padding-left: 8px; text-align: left; width: 100%">{{label}}</view>
-    </view>
-  </button>
+<view catchtap="onTap" class="sim-btn {{state === 'on' ? 'on' : 'off'}}" wx:else>
+  <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
+  <view class="label-wrap" style="{{bindstyle}}">
+    <view class="label-wrap" style="padding-left: 8px; text-align: left; width: 100%">{{label}}</view>
+  </view>
 </view>

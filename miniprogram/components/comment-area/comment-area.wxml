@@ -23,11 +23,11 @@
       </view>
     </view>
 
-    <view class="flex-container flex-justify-space flex-wrap" wx:if="{{idx == selectedIdx && selectedRole === null}}">
+    <view class="flex-container flex-justify-space flex-wrap comment-options" wx:if="{{idx == selectedIdx && selectedRole === null}}">
       <view><button class="comment-btn-waiting" size="mini">稍等 ...</button></view>
     </view>
 
-    <view class="flex-container flex-justify-space flex-wrap" wx:if="{{idx == selectedIdx && selectedRole == 'other'}}">
+    <view class="flex-container flex-justify-space flex-wrap comment-options" wx:if="{{idx == selectedIdx && selectedRole == 'other'}}">
       <view>
         <toggle-button bind:tap="onVoteBtnTap" bindstyle="min-width: 32px" id="{{'voteBtn-' + item._id}}" data-id="{{item._id}}"
         labelOn="赞" labelOff="已赞" iconOn="fa-thumbs-o-up" iconOff="fa-thumbs-up" oneline>
@@ -41,7 +41,7 @@
       <view><button class="comment-btn" size="mini"><text class="fa fa-flag-o"></text> 小报告</button></view>
     </view>
 
-    <view class="flex-container flex-justify-space flex-wrap" wx:if="{{idx == selectedIdx && selectedRole == 'owner'}}">
+    <view class="flex-container flex-justify-space flex-wrap comment-options" wx:if="{{idx == selectedIdx && selectedRole == 'owner'}}">
       <view>
         <button class="comment-btn" size="mini" bindtap="onDeleBtnTap" data-commentid="{{item._id}}">
           <text class="fa fa-trash-o"></text> 删除

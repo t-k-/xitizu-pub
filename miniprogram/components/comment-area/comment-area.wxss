@@ -9,6 +9,10 @@
   word-break: break-all;
 }
 
+.comment-options {
+  margin-top: 10px;
+}
+
 .normal {
   background-color: floralwhite;
 }
