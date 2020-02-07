@@ -32,8 +32,8 @@ Component({
     state: "waiting"
   },
 
-  created: function () {
-    //this.setWait()
+  attached: function () {
+    this.setOff()
   },
 
   methods: {

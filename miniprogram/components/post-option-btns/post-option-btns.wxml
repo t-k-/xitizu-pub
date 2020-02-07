@@ -1,0 +1,39 @@
+<view class="flex-container flex-justify-between" wx:if="{{question}}">
+  <toggle-button labelOn="收藏" labelOff="收藏"
+  iconOn="fa-star" iconOff="fa-star-o"></toggle-button>
+
+  <toggle-button labelOn="关注" labelOff="关注"
+  iconOn="fa-eye" iconOff="fa-eye-slash"></toggle-button>
+
+  <toggle-button labelOn="转发" labelOff="转发"
+  iconOn="fa-share" iconOff="fa-share"></toggle-button>
+
+  <div class="flex-container flex-justify-center">
+    <div style="max-width: 300px; width: 90%">
+      <button type="primary" style="width: 100%;">
+        <text class="fa fa-camera-retro"></text> 拍照答题
+      </button>
+    </div>
+  </div>
+</view>
+
+<view class="flex-container flex-justify-space" wx:else>
+  <toggle-button labelOn="收藏" labelOff="收藏" oneline bindstyle="min-width: 40px"
+    iconOn="fa-star" iconOff="fa-star-o"></toggle-button>
+
+  <toggle-button labelOn="修改" labelOff="修改" oneline bindstyle="min-width: 40px"
+    iconOn="fa-edit" iconOff="fa-edit" wx:if="{{owner}}"></toggle-button>
+  <toggle-button labelOn="改善" labelOff="改善" oneline bindstyle="min-width: 40px"
+    iconOn="fa-edit" iconOff="fa-edit" wx:else></toggle-button>
+
+  <toggle-button labelOn="删除" labelOff="删除" oneline bindstyle="min-width: 40px;"
+    iconOn="fa-trash-o" iconOff="fa-trash-o" wx:if="{{owner}}"></toggle-button>
+  <toggle-button labelOn="踩" labelOff="踩" oneline bindstyle="min-width: 40px;"
+    iconOn="fa-thumbs-o-down" iconOff="fa-thumbs-o-down" wx:else></toggle-button>
+
+  <div class="flex-block flex-justify-end">
+    <button type="primary" size="mini" disabled="{{owner}}">
+      <text class="fa fa-thumbs-o-up"></text> 赞 (+32)
+    </button>
+  </div>
+</view>

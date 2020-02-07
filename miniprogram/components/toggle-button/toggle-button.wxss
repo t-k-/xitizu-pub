@@ -2,7 +2,7 @@
 @import "/style/fa-fontname.wxss";
 @import "/style/theme.wxss";
 
-.oneline-container {
+.multiline-container {
   max-width: 70px;
   margin-left: -10px;
 }

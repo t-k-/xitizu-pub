@@ -1,4 +1,4 @@
-<view wx:if="{{ !oneline }}" class="oneline-container">
+<view wx:if="{{ !oneline }}" class="multiline-container">
   <button catchtap="onTap" type="default" hover-class="none" class="{{state === 'on' ? 'on' : 'off'}}" size="mini">
     <view style="font-size: 18px; line-height: 1;">
       <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>

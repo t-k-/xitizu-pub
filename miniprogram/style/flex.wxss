@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.flex-block {
+  display: flex;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }

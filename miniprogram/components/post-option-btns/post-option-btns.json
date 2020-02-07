@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "toggle-button": "../../components/toggle-button/toggle-button"
+  }
+}

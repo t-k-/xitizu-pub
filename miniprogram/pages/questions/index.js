@@ -7,7 +7,8 @@ Page({
     loginName: null,
     loginAvatar: null,
     questionID: 'km2019',
-    comments: {}
+    comments: {},
+    test: [1,2,3]
   },
 
   onLogin: function (ev) {
@@ -70,27 +71,6 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-
-    this.starButton = this.selectComponent("#starButton")
-    this.watchButton = this.selectComponent("#watchButton")
-    this.awardButton = this.selectComponent("#awardButton")
-
-    this.starButton.setOff()
-    this.awardButton.setOff()
-
-    var vm = this
-    this.watchButton.setThen(new Promise((resolve, reject) => {
-      request.cloud('question-watch', 'list', { 'qid': vm.data.questionID },
-        res => {
-          const ret = res.result.ret
-          if (ret.msg == 'success' && ret.detail.length > 0) {
-            resolve(true)
-          } else {
-            resolve(false)
-          }
-      })
-    }))
-
   },
 
   onTestNotification: function () {

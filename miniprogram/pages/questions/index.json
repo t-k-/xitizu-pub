@@ -1,8 +1,9 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "watch-button": "../../components/toggle-button/toggle-button",
     "login-avatar": "../../components/login-avatar/login-avatar",
+    "toggle-button": "../../components/toggle-button/toggle-button",
+    "post-option-btns": "../../components/post-option-btns/post-option-btns",
     "comment-area": "../../components/comment-area/comment-area",
     "photo": "../../components/sliding-image/sliding-image"
   }

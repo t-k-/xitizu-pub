@@ -40,7 +40,7 @@
 
 .answer {
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
   margin-bottom: 100px;
 
   background: white;

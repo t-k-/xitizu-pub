@@ -1,0 +1,4 @@
+@import "/style/flex.wxss";
+@import "/style/theme.wxss";
+@import "/style/fa-fontface.wxss";
+@import "/style/fa-fontname.wxss";
