@@ -27,7 +27,7 @@
       },
       {
         "pagePath": "pages/stars/stars",
-        "text": "收藏",
+        "text": "收藏夹",
         "iconPath": "/resources/tabbar/star.png",
         "selectedIconPath": "/resources/tabbar/star_on.png"
       },

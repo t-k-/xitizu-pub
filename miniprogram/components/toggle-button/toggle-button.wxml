@@ -6,7 +6,7 @@
     <view class="label-wrap" style="{{bindstyle}}">{{label}}</view>
   </button>
 </view>
-<view catchtap="onTap" class="sim-btn {{state === 'on' ? 'on' : 'off'}}" wx:else>
+<view catchtap="onTap" class="sim-btn {{state === 'on' ? 'on' : 'off'}} {{disabled ? 'disabled' : ''}} {{primary ? 'primary' : ''}}" wx:else>
   <text class="{{state === 'on' ? 'fa ' + iconOn : 'fa ' + iconOff}}"></text>
   <view class="label-wrap" style="{{bindstyle}}">
     <view class="label-wrap" style="padding-left: 8px; text-align: left; width: 100%">{{label}}</view>

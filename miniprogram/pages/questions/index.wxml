@@ -73,7 +73,8 @@
   </comment-area>
 
   <view class="separator"/>
-  <post-option-btns question></post-option-btns>
+  <post-option-btns id="question-option-btns" postid="{{questionID}}" bind:watch="onTapWatch" question>
+  </post-option-btns>
   
 </view>
 
@@ -115,6 +116,6 @@
   </comment-area>
 
   <view class="separator"/>
-  <post-option-btns></post-option-btns>
-  <post-option-btns owner></post-option-btns>
+  <post-option-btns bind:upvote="onTapUpvote" voteNum="8" mockup></post-option-btns>
+  <post-option-btns voteNum="31" owner mockup></post-option-btns>
 </view>

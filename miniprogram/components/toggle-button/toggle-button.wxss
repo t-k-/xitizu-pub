@@ -17,6 +17,22 @@ button.on, view.on {
   color: cornflowerblue;
 }
 
+view.disabled {
+  color: #acacac !important;
+  background-color: #f7f7f7 !important;
+}
+
+view.primary {
+  border-radius: 5px;
+  margin: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  line-height: 2.5;
+  background-color: #07c160;
+  color: #fff;
+}
+
 .label-wrap {
   display: inline-block;
   /* background-color: gainsboro; */

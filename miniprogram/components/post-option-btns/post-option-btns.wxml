@@ -1,16 +1,16 @@
 <view class="flex-container flex-justify-between" wx:if="{{question}}">
-  <toggle-button labelOn="收藏" labelOff="收藏"
-  iconOn="fa-star" iconOff="fa-star-o"></toggle-button>
+  <toggle-button labelOn="收藏" labelOff="收藏" id="star" bindtap="onTapBtn"
+  iconOn="fa-star-o" iconOff="fa-star"></toggle-button>
 
-  <toggle-button labelOn="关注" labelOff="关注"
+  <toggle-button labelOn="关注" labelOff="关注" id="watch" bindtap="onTapBtn"
   iconOn="fa-eye" iconOff="fa-eye-slash"></toggle-button>
 
-  <toggle-button labelOn="转发" labelOff="转发"
+  <toggle-button labelOn="转发" labelOff="转发" id="forward" bindtap="onTapBtn"
   iconOn="fa-share" iconOff="fa-share"></toggle-button>
 
   <div class="flex-container flex-justify-center">
     <div style="max-width: 300px; width: 90%">
-      <button type="primary" style="width: 100%;">
+      <button type="primary" style="width: 100%;" id="answer" bindtap="onTapBtn">
         <text class="fa fa-camera-retro"></text> 拍照答题
       </button>
     </div>
@@ -19,21 +19,20 @@
 
 <view class="flex-container flex-justify-space" wx:else>
   <toggle-button labelOn="收藏" labelOff="收藏" oneline bindstyle="min-width: 40px"
-    iconOn="fa-star" iconOff="fa-star-o"></toggle-button>
+    iconOn="fa-star-o" iconOff="fa-star" id="star" bindtap="onTapBtn"></toggle-button>
 
   <toggle-button labelOn="修改" labelOff="修改" oneline bindstyle="min-width: 40px"
-    iconOn="fa-edit" iconOff="fa-edit" wx:if="{{owner}}"></toggle-button>
+    iconOn="fa-edit" iconOff="fa-edit" id="edit" bindtap="onTapBtn" wx:if="{{owner}}"></toggle-button>
   <toggle-button labelOn="改善" labelOff="改善" oneline bindstyle="min-width: 40px"
-    iconOn="fa-edit" iconOff="fa-edit" wx:else></toggle-button>
+    iconOn="fa-edit" iconOff="fa-edit" id="edit" bindtap="onTapBtn" wx:else></toggle-button>
 
   <toggle-button labelOn="删除" labelOff="删除" oneline bindstyle="min-width: 40px;"
-    iconOn="fa-trash-o" iconOff="fa-trash-o" wx:if="{{owner}}"></toggle-button>
-  <toggle-button labelOn="踩" labelOff="踩" oneline bindstyle="min-width: 40px;"
-    iconOn="fa-thumbs-o-down" iconOff="fa-thumbs-o-down" wx:else></toggle-button>
+    iconOn="fa-trash-o" iconOff="fa-trash-o" id="dele" bindtap="onTapBtn" wx:if="{{owner}}"></toggle-button>
+  <toggle-button labelOn="踩" labelOff="已踩" oneline bindstyle="min-width: 40px;"
+    iconOn="fa-thumbs-o-down" iconOff="fa-thumbs-down" id="downvote" bindtap="onTapBtn" wx:else></toggle-button>
 
   <div class="flex-block flex-justify-end">
-    <button type="primary" size="mini" disabled="{{owner}}">
-      <text class="fa fa-thumbs-o-up"></text> 赞 (+32)
-    </button>
+    <toggle-button labelOn="赞 ({{voteNum}})" labelOff="已赞 ({{voteNum}})" oneline bindstyle="min-width: 60px;" disabled="{{owner}}"
+    iconOn="fa-thumbs-o-up" iconOff="fa-thumbs-up" id="upvote" bindtap="onTapBtn" primary></toggle-button>
   </div>
 </view>

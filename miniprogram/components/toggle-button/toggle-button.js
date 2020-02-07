@@ -21,6 +21,14 @@ Component({
       type: Boolean,
       value: false
     },
+    "primary": {
+      type: Boolean,
+      value: false
+    },
+    "disabled": {
+      type: Boolean,
+      value: false
+    },
     "bindstyle": {
       type: String,
       value: "min-width: 65px"
@@ -33,7 +41,7 @@ Component({
   },
 
   attached: function () {
-    this.setOff()
+    this.setOn()
   },
 
   methods: {
@@ -81,7 +89,7 @@ Component({
         this.setOff()
     },
     onTap: function () {
-      if (this.data.state !== 'waiting') {
+      if (this.data.state !== 'waiting' && !this.properties.disabled) {
         this.triggerEvent('tap', {state: this.data.state})
       }
     }
