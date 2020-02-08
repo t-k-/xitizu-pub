@@ -1,12 +1,70 @@
 var Remarkable = require('./remarkable');
-var parser = new Remarkable({
+var remarkable = new Remarkable({
 	html: false /* turn on to support <video> */
 });
-var prism = require('./prism');
+
+var test_print = function (flag, str, pos, max) {
+  var arr = []
+  for (var i = 0; i < max; i ++) {
+    var ch = str.charCodeAt(i)
+    if (pos == i)
+      arr.push('[')
+    arr.push(String.fromCharCode(ch))
+    if (pos == i)
+      arr.push(']')
+  }
+  
+  console.log(flag, arr.join(''))
+} 
+
+var imath_parse = function (state, silent) {
+  var start, max, marker, matchStart, matchEnd,
+    pos = state.pos,
+    ch = state.src.charCodeAt(pos)
+
+  start = pos
+  pos++
+  max = state.posMax
+  
+  if (ch !== 0x24) { return false }
+
+  while (pos < max && state.src.charCodeAt(pos) === 0x24) { pos++ }
+
+  marker = state.src.slice(start, pos);
+  matchStart = matchEnd = pos
+
+  while ((matchStart = state.src.indexOf('$', matchEnd)) !== -1) {
+    matchEnd = matchStart + 1
+    while (matchEnd < max && state.src.charCodeAt(matchEnd) === 0x24) { matchEnd++; }
+    
+    if (matchEnd - matchStart === marker.length) {
+      if (!silent) {
+        state.push({
+          type: 'code',
+          content: marker + state.src.slice(pos, matchStart)
+            .replace(/[ \n]+/g, ' ')
+            .trim() + marker,
+          block: false,
+          level: state.level
+        });
+      }
+      state.pos = matchEnd
+      return true;
+    }
+  }
+}
+
+var xitizu_math_extension = function (md) {
+  md.inline.ruler.push('imath', imath_parse)
+}
+
+remarkable.use(xitizu_math_extension)
+
+var prism = require('./prism'); /* code highlight */
 
 function parse(md, options){
 	if(!options) options = {};
-	var tokens = parser.parse(md, {});
+  var tokens = remarkable.parse(md, {});
 
 	// markdwon渲染列表
 	var renderList = [];
@@ -45,7 +103,6 @@ function parse(md, options){
 				}
 			}
 		}else{
-			// console.log(inlineToken);
 			inlineToken.children && inlineToken.children.forEach(function(token, index){
 				if(['text', 'code'].indexOf(token.type) > -1){
 					ret.push({
