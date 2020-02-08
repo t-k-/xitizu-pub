@@ -8,7 +8,7 @@ Page({
     loginAvatar: null,
     questionID: 'km2019',
     comments: {},
-    test: [1,2,3]
+    md: "## 你们好 \n yes it is **ME** \n\n 请各位aiguofen看[这个](https://www.baidu.com)."
   },
 
   onLogin: function (ev) {

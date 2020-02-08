@@ -87,6 +87,8 @@
 </view>
 
 <view class="answer">
+  <wemark md="{{md}}" link highlight type="wemark"></wemark>
+
   <button plain="true" bindtap="onTestNotification">测试关注通知</button>
 
   <view>用户头像</view>

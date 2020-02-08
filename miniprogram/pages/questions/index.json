@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "wemark": "../../common-utils/vendor/wemark/wemark",
     "login-avatar": "../../components/login-avatar/login-avatar",
     "toggle-button": "../../components/toggle-button/toggle-button",
     "post-option-btns": "../../components/post-option-btns/post-option-btns",
