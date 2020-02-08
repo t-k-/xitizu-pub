@@ -87,15 +87,15 @@
 </view>
 
 <view class="answer">
-  <wemark md="{{md}}" link highlight type="wemark"></wemark>
 
   <button plain="true" bindtap="onTestNotification">测试关注通知</button>
+  <button plain="true" bindtap="onTestAnything">测试</button>
 
   <view>用户头像</view>
   <view>折叠、删除(可针对某一段落)</view>
   <view class="separator"/>
 
-  <photo url="https://6761-ga6840-zk2qr-1301008873.tcb.qcloud.la/photos/test.jpg?sign=86a7fea5b8f5281469c18ddbfc783588&t=1578405336"/>
+  <wemark md="{{md}}"></wemark>
 
   <view class="flex-container flex-justify-between">
     <view class="flex-container flex-justify-start">

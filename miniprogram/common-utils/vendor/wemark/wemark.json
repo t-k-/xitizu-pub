@@ -1,3 +1,6 @@
 {
-    "component": true
+  "component": true,
+  "usingComponents": {
+    "photo": "../../components/sliding-image/sliding-image"
+  }
 }

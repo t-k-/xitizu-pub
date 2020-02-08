@@ -21,6 +21,7 @@ Component({
   attached: function () {
     const win_width = wx.getSystemInfoSync().windowWidth;
     var vm = this;
+    console.log('[image]', vm.properties.url)
     wx.getImageInfo({
       src: vm.properties.url,
       success: function (res) {

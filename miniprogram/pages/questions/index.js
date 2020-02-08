@@ -8,7 +8,7 @@ Page({
     loginAvatar: null,
     questionID: 'km2019',
     comments: {},
-    md: "## 你们好 \n yes it is **ME** \n\n 请各位aiguofen看[这个](https://www.baidu.com)."
+    md: ""
   },
 
   onLogin: function (ev) {
@@ -108,6 +108,29 @@ Page({
     request.cloud('question-watch', 'notify', {'qid': this.data.questionID},
     (res) => {
       console.log('notify', res)
+    })
+  },
+  onTestAnything: async function () {
+    const url = "cloud://ga6840-zk2qr.6761-ga6840-zk2qr-1301008873/test.md"
+    let vm = this
+    wx.cloud.init({
+      env: 'ga6840-zk2qr'
+    })
+
+    wx.cloud.downloadFile({
+      fileID: url,
+      success: async res => {
+        const path = res.tempFilePath
+        console.log(path)
+        let fManager = wx.getFileSystemManager()
+        const content = await fManager.readFileSync(path, 'utf-8')
+        vm.setData({
+          md: content
+        })
+      },
+      fail: err => {
+        console.error(err)
+      }
     })
   }
 })

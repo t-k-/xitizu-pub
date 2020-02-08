@@ -1,6 +1,6 @@
 var Remarkable = require('./remarkable');
 var parser = new Remarkable({
-	html: false
+	html: false /* turn on to support <video> */
 });
 var prism = require('./prism');
 
@@ -26,7 +26,6 @@ function parse(md, options){
 
 		if(inlineToken.type === 'htmlblock'){
 			// 匹配video
-			// 兼容video[src]和video > source[src]
 			var videoRegExp = /<video.*?src\s*=\s*['"]*([^\s^'^"]+).*?(poster\s*=\s*['"]*([^\s^'^"]+).*?)?(?:\/\s*>|<\/video>)/g;
 
 			var match;
@@ -179,11 +178,6 @@ function parse(md, options){
 					}
 				});
 			}
-			// flatten nested tokens in html
-			// if (blockToken.params === 'html') {
-				// content = flattenTokens(content)
-			// }
-			// console.log(content);
 
 			return {
 				type: 'code',
